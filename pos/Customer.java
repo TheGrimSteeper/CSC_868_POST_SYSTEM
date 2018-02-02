@@ -1,7 +1,7 @@
 package pos;
 
 public class Customer {
-	KeyValuePairs[] shoppingCart = new KeyValuePairs[3]; 
+	KeyValuePairs[] shoppingCart; 
 	
 	Customer(KeyValuePairs[] shoppingCart) {
 		this.shoppingCart = shoppingCart;

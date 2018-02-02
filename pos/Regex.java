@@ -4,13 +4,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Regex {
-	static final Pattern UPS_PATTERN = Pattern.compile("[0-9]{4}");
-	static final Pattern PRODUCT_PATTERN = Pattern.compile("[A-Z]{0,30}");
+	static final Pattern UPC_PATTERN = Pattern.compile("[0-9]{4}");
+	static final Pattern PRODUCT_PATTERN = Pattern.compile("^[A-Z,0-9%]{1,30}$");
 	static final Pattern PRICE_PATTERN = Pattern.compile("[.0-9]{7}");
 	
 	
-	public static boolean isItUPS(String string) {
-		Matcher matcher = UPS_PATTERN.matcher(string);
+	public static boolean isItUPC(String string) {
+		Matcher matcher = UPC_PATTERN.matcher(string);
 		return matcher.matches();
 	}
 	
