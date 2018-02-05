@@ -1,2 +1,3 @@
-Bob Loblaw    0002 1 0005 3 0006 7 0001 10    CASH $0020.00
+Bob Loblaw    0002 1 0005 3 0006 7 0001 10    CASH $0050.00
 Mary Sue      0004 2 0009 15                    CREDIT 12345
+Alia Bhatt     0010 3 0007 4 0008 20           CASH $0100.00

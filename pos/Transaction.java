@@ -1,11 +1,11 @@
 package pos;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Transaction {
 
 	String customerName;
-	HashMap<String, Item> item;
+	ArrayList<Item> item;
 	Payment payment;
 	
 	
@@ -16,7 +16,12 @@ public class Transaction {
 		this.customerName = customerName;
 	}
 	
-	
+	public ArrayList<Item> getItem() {
+		return item;
+	}
+	public void setItem(ArrayList<Item> item) {
+		this.item = item;
+	}
 	public Payment getPayment() {
 		return payment;
 	}
