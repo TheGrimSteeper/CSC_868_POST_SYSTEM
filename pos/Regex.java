@@ -4,9 +4,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Regex {
-	static final Pattern UPC_PATTERN = Pattern.compile("[0-9]{4}");
+	static final Pattern UPC_PATTERN = Pattern.compile("^[0-9]{4}$");
 	static final Pattern PRODUCT_PATTERN = Pattern.compile("^[A-Z,0-9%]{1,30}$");
-	static final Pattern PRICE_PATTERN = Pattern.compile("[.0-9]{7}");
+	static final Pattern PRICE_PATTERN = Pattern.compile("^[.0-9$]{7,8}$");
+	static final Pattern NAME_PATTERN = Pattern.compile("^[A-Za-z]{1,20}$");
+	static final Pattern CREDIT_PATTERN  = Pattern.compile("^[0-9]{5}$");
 	
 	
 	public static boolean isItUPC(String string) {
