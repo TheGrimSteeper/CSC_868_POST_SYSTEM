@@ -15,7 +15,7 @@ public class Cashier {
 		String lastName = name.split(" ")[1].replaceAll("\\s+","");
 		HashMap<String, Integer> shoppingCart = ParserClass.returnShoppingCart(relativePath,name);
 		String cashOrCredit = ParserClass.cashOrCredit(relativePath, name);
-		if(cashOrCredit == "CASH") {
+		if(cashOrCredit.equals("CASH")) {
 			double cashAmount = ParserClass.returnAmountPaid(relativePath,name);
 			Customer customer =  new Customer(firstName,lastName,shoppingCart,cashOrCredit,cashAmount);
 			return customer;

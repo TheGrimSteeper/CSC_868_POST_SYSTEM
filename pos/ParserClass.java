@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -125,7 +127,6 @@ public class ParserClass {
 				currentLine = scanner.nextLine();
 				if(nameMatches(currentLine, fullName)) {
 					customerFound = true;
-					System.out.println(customerFound);
 				}
 				currentLineNum++;
 			}
@@ -149,7 +150,6 @@ public class ParserClass {
 				if(nameMatches(currentLine, fullName)) {
 					for(int i = 0; i < currentLine.split(" ").length; i++) {
 						if(Regex.isItUPC(currentLine.split(" ")[i].replaceAll("\\s+",""))){
-							System.out.println("dsfsdf");
 							shoppingCart.put(currentLine.split(" ")[i].replaceAll("\\s+",""), Integer.parseInt(currentLine.split(" ")[i+1].replaceAll("\\s+","")));
 						}
 					}
@@ -177,9 +177,9 @@ public class ParserClass {
 				currentLine = scanner.nextLine();
 				if(nameMatches(currentLine, fullName)) {
 					for(int i = 0; i < currentLine.split(" ").length; i++) {
-						if(currentLine.split(" ")[i].replaceAll("\\s+","") == "CASH"){
+						if(currentLine.split(" ")[i].replaceAll("\\s+","").equals("CASH")){
 							cashOrCredit = "CASH"; 
-						}else if(currentLine.split(" ")[i].replaceAll("\\s+","") == "CREDIT") {
+						}else if(currentLine.split(" ")[i].replaceAll("\\s+","").equals("CREDIT")) {
 							cashOrCredit = "CREDIT";
 						}
 					}
@@ -194,7 +194,7 @@ public class ParserClass {
 		}
 	}
 	
-	public static double returnAmountPaid(String relativeFilePath, String fullName) {
+	public static double returnAmountPaid(String relativeFilePath, String fullName) throws ParseException {
 		try {
 			File file = new File(relativeFilePath);
 			Scanner scanner = new Scanner(file);
@@ -206,7 +206,9 @@ public class ParserClass {
 				if(nameMatches(currentLine, fullName)) {
 					for(int i = 0; i < currentLine.split(" ").length; i++) {
 						if(Regex.isItPrice(currentLine.split(" ")[i].replaceAll("\\s+",""))){
-							cashAmount = Double.parseDouble(currentLine.split(" ")[i].replaceAll("\\$\\s+",""));
+							NumberFormat format = NumberFormat.getCurrencyInstance();
+							Number number = format.parse(currentLine.split(" ")[i]);
+							cashAmount = number.doubleValue();
 						}
 					}		
 				}

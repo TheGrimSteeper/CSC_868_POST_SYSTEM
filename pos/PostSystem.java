@@ -1,6 +1,10 @@
 package pos;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -52,7 +56,7 @@ public class PostSystem {
 
 	
 	public void readyForCustomer() throws ParseException {
-		System.out.println("Welcome to " + store.getStoreName() + "!\n Please enter your full name:");
+		System.out.println("Welcome to " + Store.getStoreName() + "!\n Please enter your full name:");
 		Scanner scanner = new Scanner(System.in);
 		String name = "";
 		name = scanner.nextLine();
@@ -61,7 +65,6 @@ public class PostSystem {
 				System.out.println("Something went wrong!");
 				name = "";
 			}else {
-				System.out.println("Success");
 				this.currentCustomer = cashier.proccessCustomer(transactionsPath,name);
 				System.out.println(createRecipt(this.store.getCatalog().getProduct(),this.currentCustomer));
 			}
@@ -73,15 +76,28 @@ public class PostSystem {
 	}
 	
 	public String createRecipt(Product[] catalog, Customer currentCustomer) {
-		String recipt = this.store.getStoreName() + "\n\n" + currentCustomer.getFirstName() + " " + currentCustomer.getLastName() +  "\n";
+		Date date = new Date();
+		SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd");
+		String recipt = "\n\n" + Store.getStoreName() + "\n\n" + currentCustomer.getFirstName() + " " + currentCustomer.getLastName() + "          " + ft.format(date) + "\n";
+		double total = 0;
 		for(Map.Entry<String, Integer> entry : currentCustomer.shoppingCart.entrySet()) {
 			String UPC = entry.getKey();
 		    Integer amount = entry.getValue();
 		    for(int i = 0; i < catalog.length; i++) {
-		    	if(UPC == catalog[i].UPC) {
-		    		recipt += "- " + catalog[i].productDescription + " QTY " + amount + " Price " + catalog[i].price + " Sub " + (catalog[i].price*amount);     
+		    	if(UPC.equals(catalog[i].UPC)) {
+		    		recipt += "- " + catalog[i].productDescription + ", QTY " + amount + ", Price " + catalog[i].price + ", SubTotal " + (catalog[i].price*amount + "\n");
+		    		total += (catalog[i].price*amount);
 		    	}
 		    }
+		}
+		recipt += "------------\n";
+		recipt += "Total $" + total + "\n\n";
+		if(currentCustomer.getCashOrCredit().equals("CREDIT")) {
+			recipt += "Credit Card: " + currentCustomer.getCreditCardNumber();
+		}
+		if(currentCustomer.getCashOrCredit().equals("CASH")) {
+			recipt += "Amount Tendered: " + currentCustomer.getCashAmount() + "\n";
+			recipt += "Amount Returned: " + Math.round((currentCustomer.getCashAmount()-total)) + "\n";
 		}
 		return recipt;
 	}
