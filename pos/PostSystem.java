@@ -1,62 +1,95 @@
 package pos;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.text.ParseException;
 import java.util.HashMap;
-import java.util.ListIterator;
-
-import parameter_files.Constant;
+import java.util.Map;
+import java.util.Scanner;
 
 public class PostSystem {
+	Store store;
+	Cashier cashier;
+	Customer currentCustomer;
+	String recipt;
+	public static final String productsPath = "parameter_files/products.txt";
+	public static final String transactionsPath = "parameter_files/transaction.txt";
 	
-	public static ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
-	public static HashMap<String, Product> productMap = new HashMap<String, Product>();
-	
-
-	public static void main(String args[]) {
-		
-		transactionList = TransactionReader.parseTransactions();
-		productMap = ProductReader.parseProducts();
-		
-		generateInvoice(transactionList, productMap);
-		
-		
+	PostSystem(Store store, Cashier cashier){
+		this.store = store;
+		this.cashier = cashier;
 	}
 	
-	public static void generateInvoice(ArrayList<Transaction> transactionList, HashMap<String, Product> productMap) {
-	
-		for(Transaction transaction : transactionList) {
-		System.out.println("-------------" +Constant.STORENAME+ "-------------");
-		System.out.println();
-		System.out.println("Customer Name:" + transaction.customerName);
-		System.out.println("Billing Time : " + new Date());
-		
-		transaction.item = Item.poulateItemDetails(transaction.item, productMap);
-		double totalPrice = 0.0;
-		System.out.println();
-		for(Item item : transaction.item) {
-		System.out.println("Item: "+ item.productDescription + "  " + item.quantity + " * " + item.unitPrice+ " = $" + item.subTotal);
-		totalPrice = totalPrice + item.subTotal;
-		}
-		System.out.println();
-	    System.out.println("Total Amount: $" + totalPrice);
-	    String paymentMode = transaction.getPayment().paymentMode;
-		  if((Constant.CASH).equalsIgnoreCase(paymentMode)){
-			  System.out.println("Amount Tendered: $" + transaction.getPayment().amount + " By CASH");
-			  double amountReturned = (transaction.getPayment().amount) - totalPrice;
-			  DecimalFormat df = new DecimalFormat(".##");
-			  System.out.println("Amount Returned: $" + df.format(amountReturned));
-		  }
-		  else if((Constant.CREDIT).equalsIgnoreCase(paymentMode)) {
-			  System.out.println("Amount Tendered: Credit Card " + (int)transaction.getPayment().amount);
+	public Store getStore() {
+		return store;
+	}
 
-		  }
-	    System.out.println("Thank you! Visit us again.");
-		System.out.println();
-		System.out.println();
+	public void setStore(Store store) {
+		this.store = store;
+	}
+
+	public Cashier getCashier() {
+		return cashier;
+	}
+
+	public void setCashier(Cashier cashier) {
+		this.cashier = cashier;
+	}
+
+	public Customer getCurrentCustomer() {
+		return currentCustomer;
+	}
+
+	public void setCurrentCustomer(Customer currentCustomer) {
+		this.currentCustomer = currentCustomer;
+	}
+
+	public static String getProductspath() {
+		return productsPath;
+	}
+
+	public static String getTransactionspath() {
+		return transactionsPath;
+	}
+
+	
+	public void readyForCustomer() throws ParseException {
+		System.out.println("Welcome to " + store.getStoreName() + "!\n Please enter your full name:");
+		Scanner scanner = new Scanner(System.in);
+		String name = "";
+		name = scanner.nextLine();
+		if(ParserClass.customerFound(transactionsPath,name)) {
+			if(cashier.proccessCustomer(transactionsPath,name) == null) {
+				System.out.println("Something went wrong!");
+				name = "";
+			}else {
+				System.out.println("Success");
+				this.currentCustomer = cashier.proccessCustomer(transactionsPath,name);
+				System.out.println(createRecipt(this.store.getCatalog().getProduct(),this.currentCustomer));
+			}
+		}else if(!ParserClass.customerFound(transactionsPath,name)){
+			System.out.println("Name not found!");
+			name = "";
+			name = scanner.nextLine();
 		}
+	}
+	
+	public String createRecipt(Product[] catalog, Customer currentCustomer) {
+		String recipt = this.store.getStoreName() + "\n\n" + currentCustomer.getFirstName() + " " + currentCustomer.getLastName() +  "\n";
+		for(Map.Entry<String, Integer> entry : currentCustomer.shoppingCart.entrySet()) {
+			String UPC = entry.getKey();
+		    Integer amount = entry.getValue();
+		    for(int i = 0; i < catalog.length; i++) {
+		    	if(UPC == catalog[i].UPC) {
+		    		recipt += "- " + catalog[i].productDescription + " QTY " + amount + " Price " + catalog[i].price + " Sub " + (catalog[i].price*amount);     
+		    	}
+		    }
+		}
+		return recipt;
+	}
+	
+	public static void main(String[] arg) throws ParseException {
+		PostSystem post = Manager.startUpStore();
 		
+		post.readyForCustomer();
 		
 	}
 	

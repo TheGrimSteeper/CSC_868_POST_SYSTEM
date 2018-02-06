@@ -1,18 +1,28 @@
 package pos;
 
 public class ProductCatalog {
-	Products[] products;
+	private Product[] product;
 	
-	ProductCatalog(Products[] products){
-		this.products = products;
+	ProductCatalog(Product[] Product){
+		this.product = Product;
 	}
 	
 	public String toString() {
 		String string = "";
-		for(int i = 0; i < products.length; i++) {
-			string += this.products[i].UPC + " " + this.products[i].product + " " + this.products[i].price + "\n";
+		for(int i = 0; i < product.length; i++) {
+			string += this.product[i].UPC + " " + this.product[i].productDescription + " " + this.product[i].price + "\n";
 		}
 		return string;
 	}
+
+	public Product[] getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product[] product) {
+		this.product = product;
+	}
+	
+	
 
 }

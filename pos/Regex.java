@@ -25,5 +25,15 @@ public class Regex {
 		Matcher matcher = PRICE_PATTERN.matcher(string);
 		return matcher.matches();
 	}
+	
+	public static boolean isName(String string) {
+		Matcher matcher = PRICE_PATTERN.matcher(string);
+		return matcher.matches();
+	}
+	
+	public static boolean isItCreditCard(String string) {
+		Matcher matcher = CREDIT_PATTERN.matcher(string);
+		return matcher.matches();
+	}
 
 }

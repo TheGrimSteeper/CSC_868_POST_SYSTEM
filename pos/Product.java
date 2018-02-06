@@ -7,12 +7,12 @@ public class Product {
 	public double price = 0;
 	
 	
-	/*public Product(String UPC, String productDescription, float price) {
+	public Product(String UPC, String productDescription, double price) {
 		super();
 		this.UPC = UPC;
 		this.productDescription = productDescription;
 		this.price = price;
-	}*/
+	}
 
 
 	public String getUPC() {
