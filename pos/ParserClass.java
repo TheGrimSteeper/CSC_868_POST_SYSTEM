@@ -61,6 +61,7 @@ public class ParserClass {
 				return (!"".equals(currentLine.trim())) ? true : false;
 	}
 	
+	
 	public static boolean hasMoreLines(int currentLine, String relativeFilePath) {
 		int numberOfLines = lineCounter(relativeFilePath);
 		return (numberOfLines < currentLine) ? false : true;
@@ -125,8 +126,10 @@ public class ParserClass {
 			boolean customerFound = false;
 			while(hasMoreLines(currentLineNum,relativeFilePath)) {
 				currentLine = scanner.nextLine();
-				if(nameMatches(currentLine, fullName)) {
-					customerFound = true;
+				if(Regex.isItName(currentLine.split(" ")[0].replaceAll("\\s+",""))) {
+					if(nameMatches(currentLine, fullName)) {
+						customerFound = true;
+					}
 				}
 				currentLineNum++;
 			}
@@ -144,16 +147,26 @@ public class ParserClass {
 			Scanner scanner = new Scanner(file);
 			int currentLineNum = 1;
 			String currentLine;
+			boolean stillOnCustomer = true;
 			HashMap<String, Integer> shoppingCart = new HashMap<String, Integer>();
-			while(hasMoreLines(currentLineNum,relativeFilePath)) {
+			breakpoint1:
+			while(hasMoreLines(currentLineNum,relativeFilePath) && stillOnCustomer) {
 				currentLine = scanner.nextLine();
-				if(nameMatches(currentLine, fullName)) {
-					for(int i = 0; i < currentLine.split(" ").length; i++) {
-						if(Regex.isItUPC(currentLine.split(" ")[i].replaceAll("\\s+",""))){
-							shoppingCart.put(currentLine.split(" ")[i].replaceAll("\\s+",""), Integer.parseInt(currentLine.split(" ")[i+1].replaceAll("\\s+","")));
+				if(Regex.isItName(currentLine.split(" ")[0].replaceAll("\\s+",""))) {
+					if(nameMatches(currentLine, fullName)) {
+						while(stillOnCustomer) {
+							currentLine = scanner.nextLine();
+							if(Regex.isItUPC(currentLine.split(" ")[0].replaceAll("\\s+",""))){
+								shoppingCart.put(currentLine.split(" ")[0].replaceAll("\\s+",""), Integer.parseInt(currentLine.split(" ")[1].replaceAll("\\s+","")));
+							}
+							stillOnCustomer = isNotEmptyLine(currentLine);
+							if(!stillOnCustomer) {
+								break breakpoint1;
+							}
 						}
 					}
 				}
+				
 				currentLineNum++;
 			}
 			scanner.close();
@@ -173,14 +186,23 @@ public class ParserClass {
 			int currentLineNum = 1;
 			String currentLine;
 			String cashOrCredit = "NA";
-			while(hasMoreLines(currentLineNum,relativeFilePath)) {
+			boolean stillOnCustomer = true;
+			breakpoint1:
+			while(hasMoreLines(currentLineNum,relativeFilePath) && stillOnCustomer) {
 				currentLine = scanner.nextLine();
-				if(nameMatches(currentLine, fullName)) {
-					for(int i = 0; i < currentLine.split(" ").length; i++) {
-						if(currentLine.split(" ")[i].replaceAll("\\s+","").equals("CASH")){
-							cashOrCredit = "CASH"; 
-						}else if(currentLine.split(" ")[i].replaceAll("\\s+","").equals("CREDIT")) {
-							cashOrCredit = "CREDIT";
+				if(Regex.isItName(currentLine.split(" ")[0].replaceAll("\\s+",""))) {
+					if(nameMatches(currentLine, fullName)) {
+						while(stillOnCustomer) {
+							currentLine = scanner.nextLine();
+							if(currentLine.split(" ")[0].equals("<CASH")){
+								cashOrCredit = "CASH"; 
+							}else if(currentLine.split(" ")[0].equals("<CREDIT")) {
+								cashOrCredit = "CREDIT";
+							}
+							stillOnCustomer = isNotEmptyLine(currentLine);
+							if(!stillOnCustomer) {
+								break breakpoint1;
+							}
 						}
 					}
 				}
@@ -200,17 +222,26 @@ public class ParserClass {
 			Scanner scanner = new Scanner(file);
 			int currentLineNum = 1;
 			String currentLine;
-			double cashAmount = 0.00;
-			while(hasMoreLines(currentLineNum,relativeFilePath)) {
+			double cashAmount = 10.00;
+			boolean stillOnCustomer = true;
+			breakpoint1:
+			while(hasMoreLines(currentLineNum,relativeFilePath) && stillOnCustomer) {
 				currentLine = scanner.nextLine();
-				if(nameMatches(currentLine, fullName)) {
-					for(int i = 0; i < currentLine.split(" ").length; i++) {
-						if(Regex.isItPrice(currentLine.split(" ")[i].replaceAll("\\s+",""))){
-							NumberFormat format = NumberFormat.getCurrencyInstance();
-							Number number = format.parse(currentLine.split(" ")[i]);
-							cashAmount = number.doubleValue();
+				if(Regex.isItName(currentLine.split(" ")[0].replaceAll("\\s+",""))) {
+					if(nameMatches(currentLine, fullName)) {
+						while(stillOnCustomer) {
+							currentLine = scanner.nextLine();
+							if(currentLine.split(" ").length >= 2 && Regex.isItPrice(currentLine.split(" ")[1].replaceAll(">",""))){
+								NumberFormat format = NumberFormat.getCurrencyInstance();
+								Number number = format.parse(currentLine.split(" ")[1].replaceAll(">",""));
+								cashAmount = number.doubleValue();
+							}
+							stillOnCustomer = isNotEmptyLine(currentLine);
+							if(!stillOnCustomer) {
+								break breakpoint1;
+							}
 						}
-					}		
+					}
 				}
 				currentLineNum++;
 			}
@@ -229,17 +260,26 @@ public class ParserClass {
 			int currentLineNum = 1;
 			String currentLine;
 			String creditCardNumber = "NA";
-			while(hasMoreLines(currentLineNum,relativeFilePath)) {
-				currentLine = scanner.nextLine();
-				if(nameMatches(currentLine, fullName)) {
-					for(int i = 0; i < currentLine.split(" ").length; i++) {
-						if(Regex.isItCreditCard(currentLine.split(" ")[i].replaceAll("\\s+",""))){
-							creditCardNumber = currentLine.split(" ")[i].replaceAll("\\s+","");
+			boolean stillOnCustomer = true;
+			breakpoint1:
+				while(hasMoreLines(currentLineNum,relativeFilePath) && stillOnCustomer) {
+					currentLine = scanner.nextLine();
+					if(Regex.isItName(currentLine.split(" ")[0].replaceAll("\\s+",""))) {
+						if(nameMatches(currentLine, fullName)) {
+							while(stillOnCustomer) {
+								currentLine = scanner.nextLine();
+								if(currentLine.split(" ").length >= 2 && Regex.isItCreditCard(currentLine.split(" ")[1].replaceAll("<>",""))){
+									creditCardNumber = currentLine.split(" ")[1].replaceAll("<>","");
+								}
+								stillOnCustomer = isNotEmptyLine(currentLine);
+								if(!stillOnCustomer) {
+									break breakpoint1;
+								}
+							}
 						}
-					}		
+					}
+					currentLineNum++;
 				}
-				currentLineNum++;
-			}
 			scanner.close();
 			return creditCardNumber;
 		}catch(FileNotFoundException e) {

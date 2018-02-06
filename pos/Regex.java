@@ -26,8 +26,8 @@ public class Regex {
 		return matcher.matches();
 	}
 	
-	public static boolean isName(String string) {
-		Matcher matcher = PRICE_PATTERN.matcher(string);
+	public static boolean isItName(String string) {
+		Matcher matcher = NAME_PATTERN.matcher(string);
 		return matcher.matches();
 	}
 	

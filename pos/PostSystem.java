@@ -76,28 +76,33 @@ public class PostSystem {
 	}
 	
 	public String createRecipt(Product[] catalog, Customer currentCustomer) {
+		DecimalFormat decimalFormat = new DecimalFormat("#.##");
+		decimalFormat.setRoundingMode(RoundingMode.CEILING);
 		Date date = new Date();
-		SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd");
-		String recipt = "\n\n" + Store.getStoreName() + "\n\n" + currentCustomer.getFirstName() + " " + currentCustomer.getLastName() + "          " + ft.format(date) + "\n";
+		SimpleDateFormat dateFormat = new SimpleDateFormat ("MM.ddy.yyyy");
+		String recipt = "\n\n-----" + Store.getStoreName() + ""; 
+		recipt += "\n\n" + currentCustomer.getFirstName() + " " + currentCustomer.getLastName() + "           ";
+		recipt += dateFormat.format(date) + "\n";
+		recipt += "-----------------------------------\n";
 		double total = 0;
 		for(Map.Entry<String, Integer> entry : currentCustomer.shoppingCart.entrySet()) {
 			String UPC = entry.getKey();
 		    Integer amount = entry.getValue();
 		    for(int i = 0; i < catalog.length; i++) {
 		    	if(UPC.equals(catalog[i].UPC)) {
-		    		recipt += "- " + catalog[i].productDescription + ", QTY " + amount + ", Price " + catalog[i].price + ", SubTotal " + (catalog[i].price*amount + "\n");
+		    		recipt += "- " + catalog[i].productDescription + ", QTY " + decimalFormat.format(amount) + ", Price " + decimalFormat.format(catalog[i].price) + ", SubTotal " + (decimalFormat.format(catalog[i].price*amount) + "\n");
 		    		total += (catalog[i].price*amount);
 		    	}
 		    }
 		}
 		recipt += "------------\n";
-		recipt += "Total $" + total + "\n\n";
+		recipt += "Total $" + decimalFormat.format(total) + "\n\n";
 		if(currentCustomer.getCashOrCredit().equals("CREDIT")) {
 			recipt += "Credit Card: " + currentCustomer.getCreditCardNumber();
 		}
 		if(currentCustomer.getCashOrCredit().equals("CASH")) {
 			recipt += "Amount Tendered: " + currentCustomer.getCashAmount() + "\n";
-			recipt += "Amount Returned: " + Math.round((currentCustomer.getCashAmount()-total)) + "\n";
+			recipt += "Amount Returned: " + decimalFormat.format(currentCustomer.getCashAmount()-total) + "\n";
 		}
 		return recipt;
 	}
