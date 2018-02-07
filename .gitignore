@@ -1,0 +1,11 @@
+.metadata/*
+./RemoteSytemsTempFiles/
+.project
+.classpath
+
+
+# intelliJ Project Files
+.idea/*
+*.iml
+
+*.class
