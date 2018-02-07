@@ -8,6 +8,7 @@ import java.util.ListIterator;
 
 import parameter_files.Constant;
 
+
 public class PostSystem {
 	
 	public static ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
@@ -20,7 +21,9 @@ public class PostSystem {
 		productMap = ProductReader.parseProducts();
 		
 		generateInvoice(transactionList, productMap);
-        generateTransactionLog(transactionList, productMap);
+		
+		TransactionLog log = new TransactionLog();
+        log.generateTransactionLog(transactionList, productMap);
 		
 		
 	}
@@ -60,34 +63,7 @@ public class PostSystem {
 		
 		
 	}
-   public static void generateTransactionLog(ArrayList<Transaction> transactionList, HashMap<String, Product> productMap){
-		
-		for(Transaction transaction: transactionList){
-			System.out.println("-------------" +Constant.STORENAME+ "Transaction Log-------------");
-			System.out.println();
-			System.out.println("Identifying information: " + transaction.customerName);
-			
-	    transaction.item = Item.poulateItemDetails(transaction.item, productMap);
-	
-		for(Item item : transaction.item){
-			if(item.getQuantity() > 1){
-			System.out.println("Item:          " + item.getQuantity());//Columns 10? (10 spaces)
-		}
-			System.out.println("Item:" + item.getUPC());//columns 1-4
-		}
-		
-		String paymentMode = transaction.getPayment().paymentMode;
-		
-		if((Constant.CASH).equalsIgnoreCase(paymentMode)){
-			System.out.println("Payment: Cash/Check $" + transaction.getPayment().amount);
-		}
-		else if((Constant.CREDIT).equalsIgnoreCase(paymentMode)){
-		    System.out.println("Payment: Credit " + (int)transaction.getPayment().amount);
-		}
-		    System.out.println();
-		    System.out.println();
-	    }
-       }
+   
 	
 	
 }
