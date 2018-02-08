@@ -25,4 +25,8 @@ public class CashPayment extends Payment {
     public double payAmount(double amountDue) {
         return amountToPay - amountDue;
     }
+
+    public String toString() {
+        return "CASH " + amountToPay;
+    }
 }

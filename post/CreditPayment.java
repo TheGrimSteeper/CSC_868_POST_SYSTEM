@@ -23,6 +23,10 @@ public class CreditPayment extends Payment {
 
     @Override
     public double payAmount(double amountDue) {
-        return amountDue;
+        return 0.0;
+    }
+
+    public String toString() {
+        return "CREDIT " + cardNumber;
     }
 }

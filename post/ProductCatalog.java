@@ -22,10 +22,8 @@ public class ProductCatalog {
     public Product lookupProduct(String UPC){
         Product value = productList.get(UPC);
         if(value == null){
-            System.out.println("UPC " + UPC + " NOT FOUND");
+            System.out.println("UPC " + UPC + " NOT FOUND\n");
         }
-        else
-            System.out.println("product found with UPC: " + UPC + " = " + value.getProductDescription() );
 
         return value;
     }

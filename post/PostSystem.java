@@ -78,9 +78,8 @@ public class PostSystem {
     }
 
     private void printReceipt() {
-        System.out.println(storeName + "\n");
+        System.out.println("\n" + storeName + "\n");
         currentTransaction.printTransaction();
-        System.out.println("Amount Returned ");
     }
 
     public void sendTransactionToDB(TransactionLog salesLog) {

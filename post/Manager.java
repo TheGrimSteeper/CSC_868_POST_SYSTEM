@@ -1,5 +1,7 @@
 package post;
 
+import parameter_files.Constant;
+
 /**
  * @author  Ian Dennis
  */
@@ -35,5 +37,12 @@ public class Manager {
         register = null;
         storeProducts = null;
         store = null;
+    }
+
+    public static void main (String[] args) {
+        Manager owner = new Manager(Constant.STORENAME);
+        owner.setupStore(Constant.PRODUCTS, Constant.TRANSACTIONS);
+        owner.closeStore();
+        System.out.println("\n\nThank you for using POST 1.");
     }
 }
