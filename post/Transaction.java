@@ -62,7 +62,7 @@ public class Transaction {
     public void printTransaction() {
 
         System.out.format("%-20s  %s\n", customerName, transactionTime.toString());
-
+        System.out.println();
         for (SalesLineItem lineItem : itemsPurchased)
             System.out.println(lineItem.toString());
 

@@ -16,13 +16,13 @@ Alia Bhatt
 0008 20           
 CASH $0200.00
 
-Some Guy
+John Miler
 0010 3
 0001 4
 0007 20
 CASH $0100.00
 
-Some Girl
+Lily Roberts
 0001 8
 0002 7
 0003 6
