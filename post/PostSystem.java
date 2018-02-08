@@ -34,8 +34,6 @@ public class PostSystem {
     public void endTransaction(Customer newCustomer) {
         getCustomerIdentity(newCustomer);
 
-
-
         if (verifyPayment(newCustomer)) {
             leftoverTransactions.add(currentTransaction);
             printReceipt();
