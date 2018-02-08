@@ -6,19 +6,19 @@ public class Payment {
 	String paymentMode;
 
 
-	public double getAmount() {
+	private double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(double amount) {
+	private void setAmount(double amount) {
 		this.amount = amount;
 	}
 
-	public String getPaymentMode() {
+	private String getPaymentMode() {
 		return paymentMode;
 	}
 
-	public void setPaymentMode(String paymentMode) {
+	private void setPaymentMode(String paymentMode) {
 		this.paymentMode = paymentMode;
 	}
 

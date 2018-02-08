@@ -27,31 +27,31 @@ public class Item {
 		this.productDescription = productDescription;
 	}
 
-	public int getQuantity() {
+	private int getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	private void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 
-	public double getUnitPrice() {
+	private double getUnitPrice() {
 		return unitPrice;
 	}
 
-	public void setUnitPrice(double unitPrice) {
+	private void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
 
-	public double getSubTotal() {
+	private double getSubTotal() {
 		return subTotal;
 	}
 
-	public void setSubTotal(double subTotal) {
+	private void setSubTotal(double subTotal) {
 		this.subTotal = subTotal;
 	}
 
-	public static ArrayList<Item> poulateItemDetails(ArrayList<Item> itemList, HashMap<String, Product> productMap) {
+	private static ArrayList<Item> populateItemDetails(ArrayList<Item> itemList, HashMap<String, Product> productMap) {
 		try {
 		
 		for(Item item : itemList) {
@@ -72,6 +72,4 @@ public class Item {
 		
 	}
 	
-	
-
 }

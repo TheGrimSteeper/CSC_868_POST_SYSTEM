@@ -21,41 +21,47 @@ public class PostSystem {
 		this.store = store;
 		this.cashier = cashier;
 	}
-	
-	public Store getStore() {
-		return store;
-	}
-
-	public void setStore(Store store) {
-		this.store = store;
-	}
-
-	public Cashier getCashier() {
-		return cashier;
-	}
-
-	public void setCashier(Cashier cashier) {
-		this.cashier = cashier;
-	}
-
-	public Customer getCurrentCustomer() {
-		return currentCustomer;
-	}
-
-	public void setCurrentCustomer(Customer currentCustomer) {
-		this.currentCustomer = currentCustomer;
-	}
 
 	public static String getProductspath() {
 		return productsPath;
 	}
 
-	public static String getTransactionspath() {
-		return transactionsPath;
+	public static void main(String[] arg) throws ParseException {
+		PostSystem post = Manager.startUpStore();
+		
+		post.readyForCustomer();
+		
+	}
+	
+	private Store getStore() {
+		return store;
 	}
 
+	private void setStore(Store store) {
+		this.store = store;
+	}
+
+	private Cashier getCashier() {
+		return cashier;
+	}
+
+	private void setCashier(Cashier cashier) {
+		this.cashier = cashier;
+	}
+
+	private Customer getCurrentCustomer() {
+		return currentCustomer;
+	}
+
+	private void setCurrentCustomer(Customer currentCustomer) {
+		this.currentCustomer = currentCustomer;
+	}
+
+	private static String getTransactionspath() {
+		return transactionsPath;
+	}
 	
-	public void readyForCustomer() throws ParseException {
+	private void readyForCustomer() throws ParseException {
 		System.out.println("Welcome to " + Store.getStoreName() + "!\n Please enter your full name:");
 		Scanner scanner = new Scanner(System.in);
 		String name = "";
@@ -75,7 +81,7 @@ public class PostSystem {
 		}
 	}
 	
-	public String createRecipt(Product[] catalog, Customer currentCustomer) {
+	private String createRecipt(Product[] catalog, Customer currentCustomer) {
 		DecimalFormat decimalFormat = new DecimalFormat("#.##");
 		decimalFormat.setRoundingMode(RoundingMode.CEILING);
 		Date date = new Date();
@@ -106,13 +112,5 @@ public class PostSystem {
 		}
 		return recipt;
 	}
-	
-	public static void main(String[] arg) throws ParseException {
-		PostSystem post = Manager.startUpStore();
-		
-		post.readyForCustomer();
-		
-	}
-	
 	
 }

@@ -9,8 +9,7 @@ public class Customer {
 	String cashOrCredit;
 	double cashAmount;
 	String creditCardNumber;
-	
-	
+		
 	Customer(String firstName, String lastName, HashMap<String, Integer> shoppingCart, String cashOrCredit, double cashAmount) {
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -29,51 +28,51 @@ public class Customer {
 		this.creditCardNumber = creditCardNumber;
 	}
 
-	public HashMap<String, Integer> getShoppingCart() {
-		return shoppingCart;
-	}
-
-	public void setShoppingCart(HashMap<String, Integer> shoppingCart) {
-		this.shoppingCart = shoppingCart;
-	}
-
 	public String getFirstName() {
 		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
 	}
 
 	public String getLastName() {
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
 	public String getCashOrCredit() {
 		return cashOrCredit;
-	}
-
-	public void setCashOrCredit(String cashOrCredit) {
-		this.cashOrCredit = cashOrCredit;
 	}
 
 	public double getCashAmount() {
 		return cashAmount;
 	}
 
-	public void setCashAmount(double cashAmount) {
-		this.cashAmount = cashAmount;
-	}
-
 	public String getCreditCardNumber() {
 		return creditCardNumber;
 	}
 
-	public void setCreditCardNumber(String creditCardNumber) {
+	private HashMap<String, Integer> getShoppingCart() {
+		return shoppingCart;
+	}
+
+	private void setShoppingCart(HashMap<String, Integer> shoppingCart) {
+		this.shoppingCart = shoppingCart;
+	}
+
+	private void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	
+	private void setCashAmount(double cashAmount) {
+		this.cashAmount = cashAmount;
+	}
+	
+	private void setCashOrCredit(String cashOrCredit) {
+		this.cashOrCredit = cashOrCredit;
+	}
+	
+	private void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	private void setCreditCardNumber(String creditCardNumber) {
 		this.creditCardNumber = creditCardNumber;
 	}
 
