@@ -2,15 +2,15 @@ package post;
 
 public class Item {
 
-    String upc;
-    int quantity;
+    private String upc;
+    private int quantity;
 
     public Item(String upc, int quantity) {
         this.upc = upc;
         this.quantity = quantity;
     }
 
-    public String getUpc() {
+    public String getUPC() {
         return upc;
     }
 

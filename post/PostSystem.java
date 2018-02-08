@@ -7,11 +7,13 @@ public class PostSystem {
     private ProductCatalog productsInStock;
     private ArrayDeque<Transaction> leftoverTransactions;
     private Transaction currentTransaction;
+    private String storeName;
 
-    public PostSystem(ProductCatalog products) {
+    public PostSystem(ProductCatalog products, String storeName) {
 
         this.productsInStock = products;
         this.leftoverTransactions = new ArrayDeque<>();
+        this.storeName = storeName;
 
     }
 
@@ -32,13 +34,10 @@ public class PostSystem {
         leftoverTransactions.add(currentTransaction);
     }
 
-    public boolean addItem(Customer newCustomer) {
+    public boolean addItem(Item customerItem) {
 
         Product storeProduct;
-        Item customerItem;
         boolean successfulAdd = false;
-
-        customerItem = newCustomer.getItem();
 
         storeProduct = this.productsInStock.getProduct(customerItem.getUPC());
 

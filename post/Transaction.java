@@ -2,9 +2,6 @@ package post;
 
 import java.util.ArrayList;
 
-/**
- * Created by dennisi1 on 2/7/18.
- */
 public class Transaction {
 
     private ArrayList<SalesLineItem> itemsPurchased;
@@ -12,16 +9,20 @@ public class Transaction {
     private Payment payType;
 
     public Transaction() {
+
         this.total = 0.0;
+        itemsPurchased = new ArrayList<>();
+        payType = null;
     }
 
-    public boolean addLineItem(SalesLineItem newItem) {
-        return true;
+    public void addLineItem(SalesLineItem newItem) {
+
+        itemsPurchased.add(newItem);
     }
 
     private void calculateTotal() {
-        for ( SalesLineItem item : itemsPurchased)
-            total += item.getSubtotal();
+        for ( SalesLineItem lineItem : itemsPurchased)
+            total += lineItem.getSubtotal();
 
         total += TAX * total;
     }
@@ -29,5 +30,15 @@ public class Transaction {
     @Override
     public String toString() {
 
+        System.out.println();
+        System.out.println();
+
+        for (SalesLineItem lineItem : itemsPurchased)
+            System.out.println(lineItem.toString());
+
+        System.out.println("------");
+        System.out.println("Total $");
+        System.out.println("Amount Tendered ");
+        System.out.println("Amount Returned ");
     }
 }
