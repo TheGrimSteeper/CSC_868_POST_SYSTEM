@@ -11,15 +11,13 @@ public class Store {
 	public ProductCatalog getCatalog() {
 		return catalog;
 	}
-
-	public void setCatalog(ProductCatalog catalog) {
-		this.catalog = catalog;
-	}
-
+	
 	public static String getStoreName() {
 		return storeName;
 	}
 	
-	
+	private void setCatalog(ProductCatalog catalog) {
+		this.catalog = catalog;
+	}
 
 }

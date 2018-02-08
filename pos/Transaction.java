@@ -8,26 +8,28 @@ public class Transaction {
 	ArrayList<Item> item;
 	Payment payment;
 	
-	
-	public String getCustomerName() {
+	private String getCustomerName() {
 		return customerName;
 	}
-	public void setCustomerName(String customerName) {
+	
+	private void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
 	
-	public ArrayList<Item> getItem() {
+	private ArrayList<Item> getItem() {
 		return item;
 	}
-	public void setItem(ArrayList<Item> item) {
+	
+	private void setItem(ArrayList<Item> item) {
 		this.item = item;
 	}
-	public Payment getPayment() {
+	
+	private Payment getPayment() {
 		return payment;
 	}
-	public void setPayment(Payment payment) {
+	
+	private void setPayment(Payment payment) {
 		this.payment = payment;
 	}
-	
-	
+		
 }

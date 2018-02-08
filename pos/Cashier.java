@@ -10,7 +10,7 @@ public class Cashier {
 		this.name = name;
 	}
 	
-	public Customer proccessCustomer(String relativePath, String name) throws ParseException {
+	public Customer processCustomer(String relativePath, String name) throws ParseException {
 		String firstName = name.split(" ")[0].replaceAll("\\s+","");
 		String lastName = name.split(" ")[1].replaceAll("\\s+","");
 		HashMap<String, Integer> shoppingCart = ParserClass.returnShoppingCart(relativePath,name);

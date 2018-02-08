@@ -11,5 +11,4 @@ public class Products {
 		this.price = price;
 	}
 	
-
 }

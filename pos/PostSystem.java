@@ -21,43 +21,44 @@ public class PostSystem {
 		this.store = store;
 		this.cashier = cashier;
 	}
-	
-	public Store getStore() {
-		return store;
-	}
-
-	public void setStore(Store store) {
-		this.store = store;
-	}
-
-	public Cashier getCashier() {
-		return cashier;
-	}
-
-	public void setCashier(Cashier cashier) {
-		this.cashier = cashier;
-	}
-
-	public Customer getCurrentCustomer() {
-		return currentCustomer;
-	}
-
-	public void setCurrentCustomer(Customer currentCustomer) {
-		this.currentCustomer = currentCustomer;
-	}
 
 	public static String getProductspath() {
 		return productsPath;
 	}
 
-	public static String getTransactionspath() {
-		return transactionsPath;
+	private Store getStore() {
+		return store;
 	}
 
+	private void setStore(Store store) {
+		this.store = store;
+	}
+
+	private Cashier getCashier() {
+		return cashier;
+	}
+
+	private void setCashier(Cashier cashier) {
+		this.cashier = cashier;
+	}
+
+	private Customer getCurrentCustomer() {
+		return currentCustomer;
+	}
+
+	private void setCurrentCustomer(Customer currentCustomer) {
+		this.currentCustomer = currentCustomer;
+	}
+
+	private static String getTransactionspath() {
+		return transactionsPath;
+	}
 	
-	public boolean readyForCustomer(){
+
+	private boolean readyForCustomer(){
 		System.out.println("                                         Want to close the store? Type; CLOSE and hit ENTER");
 		System.out.println("Please enter your full name:");
+
 		Scanner scanner = new Scanner(System.in);
 		String name = "";
 		boolean stillOpen = true;
@@ -86,14 +87,14 @@ public class PostSystem {
 		boolean everythingWentOk = true;
 		
 			try {
-				if(cashier.proccessCustomer(transactionsPath,name) == null) {
+				if(cashier.processCustomer(transactionsPath,name) == null) {
 					System.out.println("Something went wrong!");
 					everythingWentOk = false;
 				}else if(!ParserClass.customerFound(transactionsPath,name)){
 					System.out.println("Name not found!");
 					everythingWentOk = false;
 				}else {
-					this.currentCustomer = cashier.proccessCustomer(transactionsPath,name);
+					this.currentCustomer = cashier.processCustomer(transactionsPath,name);
 					System.out.println(createRecipt(this.store.getCatalog().getProduct(),this.currentCustomer));
 				}
 				}catch (ParseException e) {
@@ -103,7 +104,7 @@ public class PostSystem {
 		
 	}
 	
-	public String createRecipt(Product[] catalog, Customer currentCustomer) {
+	private String createRecipt(Product[] catalog, Customer currentCustomer) {
 		DecimalFormat decimalFormat = new DecimalFormat("#.##");
 		decimalFormat.setRoundingMode(RoundingMode.CEILING);
 		Date date = new Date();
@@ -135,12 +136,12 @@ public class PostSystem {
 		return recipt;
 	}
 	
+
 	public static void main(String[] arg) throws ParseException {
 		PostSystem post = Manager.startUpStore();
 		
 		post.stillOpen();
 		
 	}
-	
 	
 }

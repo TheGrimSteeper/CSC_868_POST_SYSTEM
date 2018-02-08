@@ -19,10 +19,8 @@ public class ProductCatalog {
 		return product;
 	}
 
-	public void setProduct(Product[] product) {
+	private void setProduct(Product[] product) {
 		this.product = product;
 	}
-	
-	
 
 }

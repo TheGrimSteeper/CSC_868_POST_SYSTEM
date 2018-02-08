@@ -12,83 +12,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class ParserClass {
-	public static BufferedReader startBufferedReader(String relativeFilePath) {
-		try {
-			BufferedReader file = new BufferedReader(new FileReader(relativeFilePath));
-			return file;
-		}catch(FileNotFoundException error) {
-			System.out.println("Error: A file needed by the program was not found - " + error);
-			return null;
-		}
-	}
-	
-	
-	public static int lineCounter(String relativeFilePath) {
-		
-			BufferedReader file = startBufferedReader(relativeFilePath);
-			try {
-				int numberOfLines = 0;
-				String line;
-				while((line = file.readLine()) != null) {
-					numberOfLines++;
-				}
-				file.close();
-				return numberOfLines;
-			}catch(IOException error) {
-				System.out.println("Error: Unable to read file or maintain stream - " + error);
-				return -1;
-			}
-			
-	}
-	
-	public static int nonEmptyLineCounter(String relativeFilePath) {
-		
-		BufferedReader file = startBufferedReader(relativeFilePath);
-		int numberOfLines = 0;
-		String line;
-		try {
-			while((line = file.readLine()) != null) {
-				if(!"".equals(line.trim())){
-			        numberOfLines++;
-			    }
-			}
-			file.close();
-		}catch(IOException error) {
-			System.out.println("Error: Unable to read file or maintain stream - " + error);
-			return -1;
-		}
-		return numberOfLines;
-	}
-	
-	public static boolean isNotEmptyLine(String currentLine) {
-				return (!"".equals(currentLine.trim())) ? true : false;
-	}
-	
-	
-	public static boolean hasMoreLines(int currentLine, String relativeFilePath) {
-		int numberOfLines = lineCounter(relativeFilePath);
-		return (numberOfLines < currentLine) ? false : true;
-	}
-	
-	public static Product createProductObject(String currentLine) {
-		String tmpUPC = "";
-		String tmpProduct = "";
-		double tmpPrice = 0.00;
-		for(int i = 0; i < currentLine.split(" ").length; i++) {
-			if(Regex.isItUPC(currentLine.split(" ")[i])) {
-				tmpUPC = currentLine.split(" ")[i];
-			}else if(Regex.isItProduct(currentLine.split(" ")[i].replaceAll("\\s+",""))) {
-				tmpProduct += currentLine.split(" ")[i] + " ";
-			}else if(Regex.isItPrice(currentLine.split(" ")[i])) {
-				tmpPrice = Double.parseDouble(currentLine.split(" ")[i]);
-			}
-		}
-		Product product = new Product(tmpUPC,tmpProduct,tmpPrice);
-		return product;
-	}
-	
-	
-	
+
 	public static Product[] productParser(String relativeFilePath) {
 		try {
 			File file = new File(relativeFilePath);
@@ -115,11 +39,6 @@ public class ParserClass {
 		
 	}
 	
-	public static boolean nameMatches(String currentLine, String fullName) {
-		String lineName = currentLine.split(" ")[0] + " " + currentLine.split(" ")[1];
-		return fullName.equals(lineName);
-	}
-	
 	public static boolean customerFound(String relativeFilePath, String fullName) {
 		try {
 			File file = new File(relativeFilePath);
@@ -142,7 +61,6 @@ public class ParserClass {
 			return false;
 		}
 	}
-	
 	
 	public static HashMap<String, Integer> returnShoppingCart(String relativeFilePath, String fullName) {
 		try {
@@ -290,4 +208,80 @@ public class ParserClass {
 			return "NA";
 		}
 	}
+
+	private static BufferedReader startBufferedReader(String relativeFilePath) {
+		try {
+			BufferedReader file = new BufferedReader(new FileReader(relativeFilePath));
+			return file;
+		}catch(FileNotFoundException e) {
+			return null;
+		}
+	}
+	
+	private static int lineCounter(String relativeFilePath) {
+		
+			BufferedReader file = startBufferedReader(relativeFilePath);
+			try {
+				int numberOfLines = 0;
+				String line;
+				while((line = file.readLine()) != null) {
+					numberOfLines++;
+				}
+				file.close();
+				return numberOfLines;
+			}catch(IOException e) {
+				return 1;
+			}
+			
+	}
+	
+	private static int nonEmptyLineCounter(String relativeFilePath) {
+		
+		BufferedReader file = startBufferedReader(relativeFilePath);
+		int numberOfLines = 0;
+		String line;
+		try {
+			while((line = file.readLine()) != null) {
+				if(!"".equals(line.trim())){
+			        numberOfLines++;
+			    }
+			}
+			file.close();
+		}catch(IOException e) {
+			return 1;
+		}
+		return numberOfLines;
+	}
+	
+	private static boolean isNotEmptyLine(String currentLine) {
+				return (!"".equals(currentLine.trim())) ? true : false;
+	}
+	
+	private static boolean hasMoreLines(int currentLine, String relativeFilePath) {
+		int numberOfLines = lineCounter(relativeFilePath);
+		return (numberOfLines < currentLine) ? false : true;
+	}
+	
+	private static Product createProductObject(String currentLine) {
+		String tmpUPC = "";
+		String tmpProduct = "";
+		double tmpPrice = 0.00;
+		for(int i = 0; i < currentLine.split(" ").length; i++) {
+			if(Regex.isItUPC(currentLine.split(" ")[i])) {
+				tmpUPC = currentLine.split(" ")[i];
+			}else if(Regex.isItProduct(currentLine.split(" ")[i].replaceAll("\\s+",""))) {
+				tmpProduct += currentLine.split(" ")[i] + " ";
+			}else if(Regex.isItPrice(currentLine.split(" ")[i])) {
+				tmpPrice = Double.parseDouble(currentLine.split(" ")[i]);
+			}
+		}
+		Product product = new Product(tmpUPC,tmpProduct,tmpPrice);
+		return product;
+	}
+	
+	private static boolean nameMatches(String currentLine, String fullName) {
+		String lineName = currentLine.split(" ")[0] + " " + currentLine.split(" ")[1];
+		return fullName.equals(lineName);
+	}
+	
 }
