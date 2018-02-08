@@ -1,8 +1,5 @@
 .metadata/*
-./RemoteSytemsTempFiles/
-.project
-.classpath
-
+RemoteSytemsTempFiles/*
 
 # intelliJ Project Files
 .idea/*
