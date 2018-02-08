@@ -9,27 +9,23 @@ import parameter_files.Constant;
 
 public class Store {
 
-    private ProductCatalog storeProducts;
     private TransactionLog salesLog;
     private PostSystem register;
     private ArrayList<Customer> customers;
     private String storeName;
 
-    public Store() {
+    public Store(String storeName) {
         this.register = null;
-        this.storeName = Constant.STORENAME;
+        this.storeName = storeName;
     }
 
-    public void openStore(String transactionTxt, String catalogTxt) {
+    public void openStore(String transactionTxt, TransactionLog salesLog, PostSystem register) {
 
-        this.storeProducts = new ProductCatalog();
-        this.salesLog = new TransactionLog();
+        this.salesLog = salesLog;
+        this.register = register;
         this.customers = new ArrayList<>();
 
-        storeProducts.buildCatalog(catalogTxt);
         customers = TransactionReader.parseTransactions(transactionTxt);
-
-        register = new PostSystem(storeProducts, storeName);
 
         for (Customer customer : customers) {
             register.startTransaction();
@@ -44,10 +40,11 @@ public class Store {
 
     }
 
-    public void closeStore() {
+    public TransactionLog closeStore() {
+
         register = null;
-        storeProducts = null;
-        salesLog = null;
         customers = null;
+
+        return salesLog;
     }
 }

@@ -23,6 +23,6 @@ public class CashPayment extends Payment {
 
     @Override
     public double payAmount(double amountDue) {
-        return amountDue - amountToPay;
+        return amountToPay - amountDue;
     }
 }

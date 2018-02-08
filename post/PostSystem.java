@@ -33,9 +33,14 @@ public class PostSystem {
 
     public void endTransaction(Customer newCustomer) {
         getCustomerIdentity(newCustomer);
-        getPayment(newCustomer);
-        printReceipt();
-        leftoverTransactions.add(currentTransaction);
+
+        if (verifyPayment(newCustomer)) {
+            printReceipt();
+            leftoverTransactions.add(currentTransaction);
+        }
+        else {
+            System.out.println("Cancelling the transaction. Payment was insufficient.");
+        }
     }
 
     public boolean addItem(Item customerItem) {
@@ -53,19 +58,29 @@ public class PostSystem {
         return successfulAdd;
     }
 
-    private boolean getPayment(Customer newCustomer) {
+    private boolean verifyPayment(Customer newCustomer) {
 
-        Payment customerPayment = newCustomer.getPayType();
+        double amountDue = currentTransaction.getTotal();
+        double changeDue = newCustomer.getPayType().payAmount(amountDue);
+        boolean validPayment = true;
 
-        // process payment
+        if (changeDue >= 0.0) {
+            currentTransaction.setPayType(newCustomer.getPayType());
+            currentTransaction.setChangeDue(changeDue);
+        }
 
-        currentTransaction.setPayType(customerPayment);
+        else {
+            validPayment = false;
+            System.out.println("Amount paid was not enough to cover the cost of the products.");
+        }
 
-        return true;
+        return validPayment;
     }
 
     private void printReceipt() {
-        System.out.println(currentTransaction.toString());
+        System.out.println(storeName + "\n");
+        currentTransaction.printTransaction();
+        System.out.println("Amount Returned ");
     }
 
     public void sendTransactionToDB(TransactionLog salesLog) {

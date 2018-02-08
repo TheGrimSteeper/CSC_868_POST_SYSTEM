@@ -6,11 +6,34 @@ package post;
 
 public class Manager {
 
-    public Manager() {
+    private Store store;
+    private PostSystem register;
+    private ProductCatalog storeProducts;
+    private TransactionLog salesLog;
+    private String storeName;
 
+    public Manager(String storeName) {
+        this.storeName = storeName;
+        salesLog = new TransactionLog();
     }
 
-    public void setupStore() {
+    public void setupStore(String productFile, String transactionFile) {
 
+        store = new Store(storeName);
+        register = null;
+        storeProducts = new ProductCatalog();
+
+        //open store, setup post, put together product catalog
+        storeProducts.buildCatalog(productFile);
+        register = new PostSystem(storeProducts, storeName);
+        store.openStore(transactionFile, salesLog, register);
+    }
+
+    public void closeStore() {
+        salesLog = store.closeStore();
+        register.sendTransactionToDB(salesLog);
+        register = null;
+        storeProducts = null;
+        store = null;
     }
 }
