@@ -1,5 +1,10 @@
 package pos;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -16,7 +21,7 @@ public class PostSystem {
 	String recipt;
 	public static final String productsPath = "C:/Users/Isak/Documents/Programmering/Java/POS_SYSTEM/parameter_files/products.txt";
 	public static final String transactionsPath = "C:/Users/Isak/Documents/Programmering/Java/POS_SYSTEM/parameter_files/transaction.txt";
-	
+	public static final String logPath = "C:/Users/Isak/Documents/Programmering/Java/POS_SYSTEM/parameter_files/log.txt";
 	PostSystem(Store store, Cashier cashier){
 		this.store = store;
 		this.cashier = cashier;
@@ -62,19 +67,19 @@ public class PostSystem {
 		Scanner scanner = new Scanner(System.in);
 		String name = "";
 		boolean stillOpen = true;
-		breakpoint:
 		while(name == "") {
 			name = scanner.nextLine();
 			if(ParserClass.customerFound(transactionsPath,name)) {
 				searchForCustomer(name);
-			}
-			if(name.equals("CLOSE")) {
+			}else if(name.equals("CLOSE")) {
 				stillOpen = false;
+			}else if(!ParserClass.customerFound(transactionsPath,name)){
+				System.out.println("Name not found! Try again!");
 			}
 		}
 		return stillOpen;
 	}
-	public void stillOpen() {
+	private void stillOpen() {
 		System.out.println("Welcome to " + Store.getStoreName() + "!\n");
 		boolean stillOpen = true;
 		while(stillOpen) {
@@ -83,15 +88,12 @@ public class PostSystem {
 		System.out.println("\nAnd now your watch is ended!");
 	}
 	
-	public boolean searchForCustomer(String name) {
+	private boolean searchForCustomer(String name) {
 		boolean everythingWentOk = true;
 		
 			try {
 				if(cashier.processCustomer(transactionsPath,name) == null) {
 					System.out.println("Something went wrong!");
-					everythingWentOk = false;
-				}else if(!ParserClass.customerFound(transactionsPath,name)){
-					System.out.println("Name not found!");
 					everythingWentOk = false;
 				}else {
 					this.currentCustomer = cashier.processCustomer(transactionsPath,name);
@@ -133,7 +135,19 @@ public class PostSystem {
 			recipt += "Amount Tendered: " + currentCustomer.getCashAmount() + "\n";
 			recipt += "Amount Returned: " + decimalFormat.format(currentCustomer.getCashAmount()-total) + "\n";
 		}
+		writeToLog(recipt);
 		return recipt;
+	}
+	
+	private void writeToLog(String recipt) {
+		try {
+			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(logPath,true));
+			PrintWriter out = new PrintWriter(bufferedWriter);
+			out.println(recipt);
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 

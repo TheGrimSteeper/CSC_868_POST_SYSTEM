@@ -1,0 +1,52 @@
+
+
+-----Super Duper Shopper Saver-----
+
+Mary Sue           02.082018.2018
+-----------------------------------
+- BANANAS , QTY 2, Price 1.38, SubTotal 2.76
+- TOMATOES , QTY 15, Price 2.49, SubTotal 37.35
+------------
+Total $40.11
+
+Credit Card: 12345
+
+
+-----Super Duper Shopper Saver-----
+
+Mary Sue           02.082018.2018
+-----------------------------------
+- BANANAS , QTY 2, Price 1.38, SubTotal 2.76
+- TOMATOES , QTY 15, Price 2.49, SubTotal 37.35
+------------
+Total $40.11
+
+Credit Card: 12345
+
+
+-----Super Duper Shopper Saver-----
+
+Bob Loblaw           02.082018.2018
+-----------------------------------
+- SALAD MIX , QTY 7, Price 1.78, SubTotal 12.46
+- MILK, 2% , QTY 3, Price 2.21, SubTotal 6.63
+- APPLES, RED DELICIOUS , QTY 1, Price 1, SubTotal 1
+- AVOCADOS , QTY 10, Price 1.25, SubTotal 12.5
+------------
+Total $32.59
+
+Amount Tendered: 50.0
+Amount Returned: 17.41
+
+
+
+-----Super Duper Shopper Saver-----
+
+Mary Sue           02.082018.2018
+-----------------------------------
+- BANANAS , QTY 2, Price 1.38, SubTotal 2.76
+- TOMATOES , QTY 15, Price 2.49, SubTotal 37.35
+------------
+Total $40.11
+
+Credit Card: 12345
