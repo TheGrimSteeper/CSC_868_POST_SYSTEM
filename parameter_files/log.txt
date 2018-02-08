@@ -12,17 +12,6 @@ Total $40.11
 Credit Card: 12345
 
 
------Super Duper Shopper Saver-----
-
-Mary Sue           02.082018.2018
------------------------------------
-- BANANAS , QTY 2, Price 1.38, SubTotal 2.76
-- TOMATOES , QTY 15, Price 2.49, SubTotal 37.35
-------------
-Total $40.11
-
-Credit Card: 12345
-
 
 -----Super Duper Shopper Saver-----
 
@@ -40,13 +29,6 @@ Amount Returned: 17.41
 
 
 
------Super Duper Shopper Saver-----
+########## 02.082018.2018 ##########
 
-Mary Sue           02.082018.2018
------------------------------------
-- BANANAS , QTY 2, Price 1.38, SubTotal 2.76
-- TOMATOES , QTY 15, Price 2.49, SubTotal 37.35
-------------
-Total $40.11
 
-Credit Card: 12345

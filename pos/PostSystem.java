@@ -85,6 +85,10 @@ public class PostSystem {
 		while(stillOpen) {
 			stillOpen = readyForCustomer();
 		}
+		Date date = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat ("MM.ddy.yyyy");
+		String endOfDayLine = "\n\n########## " + dateFormat.format(date) + " ##########\n\n";
+		writeToLog(endOfDayLine);
 		System.out.println("\nAnd now your watch is ended!");
 	}
 	
@@ -129,7 +133,12 @@ public class PostSystem {
 		recipt += "------------\n";
 		recipt += "Total $" + decimalFormat.format(total) + "\n\n";
 		if(currentCustomer.getCashOrCredit().equals("CREDIT")) {
-			recipt += "Credit Card: " + currentCustomer.getCreditCardNumber();
+			double cardTransactionLottery = Math.random();
+			if(cardTransactionLottery == 0.00) {
+				recipt += "##### TRANSACTION DECLINED #####\n";
+			}
+			
+			recipt += "Credit Card: " + currentCustomer.getCreditCardNumber() + "\n";
 		}
 		if(currentCustomer.getCashOrCredit().equals("CASH")) {
 			recipt += "Amount Tendered: " + currentCustomer.getCashAmount() + "\n";
