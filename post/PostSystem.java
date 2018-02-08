@@ -34,12 +34,15 @@ public class PostSystem {
     public void endTransaction(Customer newCustomer) {
         getCustomerIdentity(newCustomer);
 
+
+
         if (verifyPayment(newCustomer)) {
-            printReceipt();
             leftoverTransactions.add(currentTransaction);
+            printReceipt();
         }
         else {
-            System.out.println("Cancelling the transaction. Payment was insufficient.");
+            printReceipt();
+            System.out.println("***CANCELLING THE TRANSACTION. Payment was insufficient.***");
         }
     }
 
@@ -64,16 +67,12 @@ public class PostSystem {
         double changeDue = newCustomer.getPayType().payAmount(amountDue);
         boolean validPayment = true;
 
-        if (changeDue >= 0.0) {
-            currentTransaction.setPayType(newCustomer.getPayType());
-            currentTransaction.setChangeDue(changeDue);
-        }
-
-        else {
+        if (changeDue < 0.0) {
             validPayment = false;
-            System.out.println("Amount paid was not enough to cover the cost of the products.");
         }
 
+        currentTransaction.setPayType(newCustomer.getPayType());
+        currentTransaction.setChangeDue(changeDue);
         return validPayment;
     }
 

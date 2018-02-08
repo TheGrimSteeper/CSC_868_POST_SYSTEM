@@ -49,7 +49,8 @@ public class Transaction {
     public double getChangeDue() { return changeDue; }
 
     private void calculateTotal(SalesLineItem lineItem) {
-        total += lineItem.getSubtotal() * Constant.TAXRATE;
+        double subtotal = lineItem.getSubtotal();
+        total += subtotal + (subtotal * Constant.TAXRATE);
     }
 
     public void addLineItem(SalesLineItem newItem) {

@@ -21,6 +21,8 @@ public class Store {
 
     public void openStore(String transactionTxt, TransactionLog salesLog, PostSystem register) {
 
+        System.out.format("%s is now open for business. Welcome!\n\n\n", storeName);
+
         this.salesLog = salesLog;
         this.register = register;
         this.customers = new ArrayList<>();
@@ -42,6 +44,7 @@ public class Store {
 
     public TransactionLog closeStore() {
 
+        System.out.format("\n\n\n%s is now closed. Please come again!\n\n", storeName);
         register = null;
         customers = null;
 

@@ -42,10 +42,13 @@ public class TransactionReader {
                     else {
                         String payment = checkNextLine;
                         populatePayment(newCustomer, payment);
+
+                        // Skip empty lines between transactions
+                        if (transactionScanner.hasNextLine())
+                            transactionScanner.nextLine();
                         break;
                     }
                 }
-                //transaction.setItem(itemList);
 
                 customerList.add(newCustomer);
             }
