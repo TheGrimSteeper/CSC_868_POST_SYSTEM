@@ -27,6 +27,6 @@ public class CashPayment extends Payment {
     }
 
     public String toString() {
-        return String.format("CASH %.2f",amountToPay);
+        return String.format("CASH %6.2f",amountToPay);
     }
 }

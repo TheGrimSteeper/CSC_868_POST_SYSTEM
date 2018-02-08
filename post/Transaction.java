@@ -60,15 +60,15 @@ public class Transaction {
 
     public void printTransaction() {
 
-        System.out.println(customerName + "    " + transactionTime.toString());
+        System.out.format("%-20s  %s\n", customerName, transactionTime.toString());
 
         for (SalesLineItem lineItem : itemsPurchased)
             System.out.println(lineItem.toString());
 
         System.out.println("------");
-        System.out.format("Total $%.2f\n", total);
+        System.out.format("Total $%6.2f\n", total);
         System.out.println("Amount Tendered: " + payType.toString());
-        System.out.format("Amount Returned: %.2f\n", changeDue);
+        System.out.format("Amount Returned:      %6.2f\n", changeDue);
     }
 
 }

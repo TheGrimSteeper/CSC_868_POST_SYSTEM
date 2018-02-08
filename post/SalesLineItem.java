@@ -29,6 +29,6 @@ public class SalesLineItem {
 
     @Override
     public String toString() {
-        return String.format("%s %d @ %.2f %.2f", item.getProductDescription(), quantity, item.getPrice(), subtotal);
+        return String.format("%-25s %5d @ %6.2f %6.2f", item.getProductDescription(), quantity, item.getPrice(), subtotal);
     }
 }

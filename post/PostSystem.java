@@ -78,7 +78,7 @@ public class PostSystem {
     }
 
     private void printReceipt() {
-        System.out.println("\n" + storeName + "\n");
+        System.out.println("\n\n" + storeName + "\n");
         currentTransaction.printTransaction();
     }
 
