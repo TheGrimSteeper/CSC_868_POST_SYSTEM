@@ -66,9 +66,9 @@ public class Transaction {
             System.out.println(lineItem.toString());
 
         System.out.println("------");
-        System.out.println("Total $" + total);
+        System.out.format("Total $%.2f\n", total);
         System.out.println("Amount Tendered: " + payType.toString());
-        System.out.println("Amount Returned: " + changeDue);
+        System.out.format("Amount Returned: %.2f\n", changeDue);
     }
 
 }
