@@ -1,5 +1,9 @@
 package post;
 
+/**
+ * @author  Ian Dennis
+ */
+
 public class Product {
 
     private String upc;

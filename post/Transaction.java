@@ -3,6 +3,10 @@ package post;
 import java.util.ArrayList;
 import parameter_files.Constant;
 
+/**
+ * @author  Ian Dennis
+ */
+
 public class Transaction {
 
     private ArrayList<SalesLineItem> itemsPurchased;

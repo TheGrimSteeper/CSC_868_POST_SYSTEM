@@ -1,6 +1,11 @@
 package post;
 
 import java.util.ArrayList;
+import parameter_files.Constant;
+
+/**
+ * @author  Ian Dennis
+ */
 
 public class Store {
 
@@ -12,7 +17,7 @@ public class Store {
 
     public Store() {
         this.register = null;
-        this.storeName = "Lost Semicolon";
+        this.storeName = Constant.STORENAME;
     }
 
     public void openStore(String transactionTxt, String catalogTxt) {

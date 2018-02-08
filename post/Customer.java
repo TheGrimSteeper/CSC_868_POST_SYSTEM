@@ -2,6 +2,10 @@ package post;
 
 import java.util.ArrayList;
 
+/**
+ * @author  Ian Dennis
+ */
+
 public class Customer {
 
     private String name;

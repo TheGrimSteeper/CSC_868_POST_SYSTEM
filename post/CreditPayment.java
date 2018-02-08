@@ -1,7 +1,7 @@
 package post;
 
 /**
- * Created by Ian Dennis
+ * @author  Ian Dennis
  */
 
 public class CreditPayment extends Payment {

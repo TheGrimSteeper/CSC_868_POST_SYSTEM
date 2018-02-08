@@ -2,6 +2,10 @@ package post;
 
 import java.util.ArrayDeque;
 
+/**
+ * @author  Ian Dennis
+ */
+
 public class PostSystem {
 
     private ProductCatalog productsInStock;

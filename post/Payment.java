@@ -1,11 +1,14 @@
 package post;
 
+/**
+ * @author  Ian Dennis
+ */
+
 public abstract class Payment {
 
     private String paymentMode;
 
     public Payment(String paymentMode) {
-
         this.paymentMode = paymentMode;
     }
 

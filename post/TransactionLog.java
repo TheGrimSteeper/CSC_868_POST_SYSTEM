@@ -2,8 +2,11 @@ package post;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import parameter_files.Constant;
+
+/**
+ * @author  Alex Bautista
+ */
 
 public class TransactionLog {
 

@@ -1,9 +1,11 @@
 package post;
 
 import java.util.*;
-import java.io.File;
-
 import parameter_files.Constant;
+
+/**
+ * @author  Alex Bautista
+ */
 
 public class ProductCatalog {
 
@@ -45,6 +47,7 @@ public class ProductCatalog {
 	 }
 	 */
 
+	 // For Testing
 	 public static void main(String[] args) {
 	     ProductCatalog items = new ProductCatalog();
 	     items.buildCatalog(Constant.PRODUCTS);

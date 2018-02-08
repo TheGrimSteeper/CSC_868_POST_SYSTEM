@@ -1,5 +1,9 @@
 package post;
 
+/**
+ * @author  Ian Dennis
+ */
+
 public class SalesLineItem {
 
     private Product item;
