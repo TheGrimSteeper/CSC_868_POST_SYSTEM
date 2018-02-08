@@ -16,7 +16,8 @@ public class ParserClass {
 		try {
 			BufferedReader file = new BufferedReader(new FileReader(relativeFilePath));
 			return file;
-		}catch(FileNotFoundException e) {
+		}catch(FileNotFoundException error) {
+			System.out.println("Error: A file needed by the program was not found - " + error);
 			return null;
 		}
 	}
@@ -33,8 +34,9 @@ public class ParserClass {
 				}
 				file.close();
 				return numberOfLines;
-			}catch(IOException e) {
-				return 1;
+			}catch(IOException error) {
+				System.out.println("Error: Unable to read file or maintain stream - " + error);
+				return -1;
 			}
 			
 	}
@@ -51,8 +53,9 @@ public class ParserClass {
 			    }
 			}
 			file.close();
-		}catch(IOException e) {
-			return 1;
+		}catch(IOException error) {
+			System.out.println("Error: Unable to read file or maintain stream - " + error);
+			return -1;
 		}
 		return numberOfLines;
 	}
@@ -268,8 +271,8 @@ public class ParserClass {
 						if(nameMatches(currentLine, fullName)) {
 							while(stillOnCustomer) {
 								currentLine = scanner.nextLine();
-								if(currentLine.split(" ").length >= 2 && Regex.isItCreditCard(currentLine.split(" ")[1].replaceAll("<>",""))){
-									creditCardNumber = currentLine.split(" ")[1].replaceAll("<>","");
+								if(currentLine.split(" ").length >= 2 && Regex.isItCreditCard(currentLine.split(" ")[1].replaceAll(">",""))){
+									creditCardNumber = currentLine.split(" ")[1].replaceAll(">","");
 								}
 								stillOnCustomer = isNotEmptyLine(currentLine);
 								if(!stillOnCustomer) {
