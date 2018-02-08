@@ -20,7 +20,7 @@ public class Transaction {
     }
 
     private void calculateTotal() {
-        for (item : itemsPurchased)
+        for ( SalesLineItem item : itemsPurchased)
             total += item.getSubtotal();
 
         total += TAX * total;

@@ -1,22 +1,26 @@
 package post;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
-/**
- * Created by dennisi1 on 2/7/18.
- */
 public class Customer {
 
     private String name;
     private Payment payType;
-    private HashMap<String,Integer> shoppingCart;
+    private ArrayList<Item> shoppingCart;
+
+    public Customer(String name) {
+        this.name = name;
+        this.shoppingCart = new ArrayList<Item>();
+        this.payType = null;
+    }
 
     public String getName() { return this.name; }
     public Payment getPayType() { return  this.payType; }
-    public HashMap<String, Integer> getShoppingCart() { return this.shoppingCart; }
+    public void setPayType(Payment payType) { this.payType = payType; }
+    public ArrayList<Item> getShoppingCart() { return this.shoppingCart; }
 
-    public boolean addToCart(String upc, Integer quantity) {
-        return true;
+    public boolean addToCart(Item newItem) {
+        shoppingCart.add(newItem);
     }
 
 }
