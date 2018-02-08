@@ -7,9 +7,33 @@ import parameter_files.Constant;
 
 public class TransactionLog {
 
+    private HashMap <String, ArrayList<Transaction>> customerLog;
+    private ArrayList<Transaction> allTransactions;
 
+    public TransactionLog() {
+        this.customerLog = new HashMap<>();
+        this.allTransactions = new ArrayList<>();
+    }
 
+    public void addTransaction(Transaction newTransaction) {
 
+        ArrayList<Transaction> customerTransaction;
+        String customerName = newTransaction.getCustomerName();
+
+        allTransactions.add(newTransaction);
+
+        if (customerLog.containsKey(customerName)) {
+            customerTransaction = customerLog.get(customerName);
+        }
+        else {
+            customerTransaction = new ArrayList<>();
+        }
+
+        customerTransaction.add(newTransaction);
+        customerLog.put(customerName, customerTransaction);
+    }
+
+/*
     public static void generateTransactionLog(ArrayList<Transaction> transactionList, HashMap<String, Product> productMap){
 
         for(Transaction transaction: transactionList){
@@ -38,6 +62,6 @@ public class TransactionLog {
             System.out.println();
         }
     }
-
+*/
 
 }

@@ -1,12 +1,14 @@
 package post;
 
 import java.util.ArrayList;
+import parameter_files.Constant;
 
 public class Transaction {
 
     private ArrayList<SalesLineItem> itemsPurchased;
     private double total;
     private Payment payType;
+    private String customerName;
 
     public Transaction() {
 
@@ -20,11 +22,27 @@ public class Transaction {
         itemsPurchased.add(newItem);
     }
 
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public Payment getPayType() {
+        return payType;
+    }
+
+    public void setPayType(Payment payType) {
+        this.payType = payType;
+    }
+
     private void calculateTotal() {
         for ( SalesLineItem lineItem : itemsPurchased)
             total += lineItem.getSubtotal();
 
-        total += TAX * total;
+        total += Constant.TAXRATE * total;
     }
 
     @Override
@@ -41,4 +59,6 @@ public class Transaction {
         System.out.println("Amount Tendered ");
         System.out.println("Amount Returned ");
     }
+
+    return null;
 }
