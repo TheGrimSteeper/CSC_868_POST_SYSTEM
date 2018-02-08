@@ -21,9 +21,7 @@ public class PostSystem {
 		productMap = ProductReader.parseProducts();
 		
 		generateInvoice(transactionList, productMap);
-		
-		TransactionLog log = new TransactionLog();
-        log.generateTransactionLog(transactionList, productMap);
+		TransactionLog.generateTransactionLog(transactionList, productMap);
 		
 		
 	}
