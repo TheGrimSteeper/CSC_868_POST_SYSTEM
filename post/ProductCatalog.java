@@ -7,12 +7,15 @@ import parameter_files.Constant;
 
 public class ProductCatalog {
 
-    private HashMap<String, Product> productList = new HashMap<String, Product>();
+    private HashMap<String, Product> productList;
 
-    ProductCatalog(HashMap<String, Product> productList){
-        this.productList = productList;
+    public ProductCatalog(){
+        this.productList = new HashMap<String, Product>();
     }
 
+    public void buildCatalog(String filename) {
+        productList = ProductReader.parseProducts(filename);
+    }
 
     public Product lookupProduct(String UPC){
         Product value = productList.get(UPC);

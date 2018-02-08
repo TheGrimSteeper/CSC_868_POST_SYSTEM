@@ -19,7 +19,7 @@ public class PostSystem {
 
     public void setProductCatalog(ProductCatalog updatedCatalog) { this.productsInStock = updatedCatalog; }
 
-    public Transaction startTransaction(Customer newCustomer) {
+    public void startTransaction() {
         currentTransaction = new Transaction();
     }
 
@@ -27,7 +27,7 @@ public class PostSystem {
         currentTransaction.setCustomerName(newCustomer.getName());
     }
 
-    public Transaction endTransaction(Customer newCustomer) {
+    public void endTransaction(Customer newCustomer) {
         getCustomerIdentity(newCustomer);
         getPayment(newCustomer);
         printReceipt();
@@ -39,7 +39,7 @@ public class PostSystem {
         Product storeProduct;
         boolean successfulAdd = false;
 
-        storeProduct = this.productsInStock.getProduct(customerItem.getUPC());
+        storeProduct = this.productsInStock.lookupProduct(customerItem.getUPC());
 
         if (storeProduct != null) {
             currentTransaction.addLineItem(new SalesLineItem(storeProduct, customerItem.getQuantity()));
@@ -55,8 +55,9 @@ public class PostSystem {
 
         // process payment
 
-        currentTransaction.addPayment(customerPayment);
+        currentTransaction.setPayType(customerPayment);
 
+        return true;
     }
 
     private void printReceipt() {

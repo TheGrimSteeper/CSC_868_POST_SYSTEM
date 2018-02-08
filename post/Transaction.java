@@ -58,7 +58,8 @@ public class Transaction {
         System.out.println("Total $");
         System.out.println("Amount Tendered ");
         System.out.println("Amount Returned ");
+
+        return null;
     }
 
-    return null;
 }
