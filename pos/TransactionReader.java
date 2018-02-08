@@ -6,29 +6,54 @@ import java.util.Scanner;
 
 import parameter_files.Constant;
 
+/**
+ * 
+ * @author shalaka
+ *Reads the Transaction file and parses it and provides the transaction list
+ */
 public class TransactionReader {
 	
-	public static ArrayList<Transaction> parseTransactions() {
+	TransactionReader (Store store, String transactionFile) {
+		
+		parseTransactions(transactionFile);
+		
+	}
+	
+	/**
+	 * 
+	 * @param transactionFile
+	 * @return
+	 */
+	public static ArrayList<Transaction> parseTransactions(String transactionFile) {
 		Scanner transactionScanner = null;
 		ArrayList <Transaction> transactionList = new ArrayList<Transaction>();
-
 		  
 	  try {
-		  File transactionFile = new File(Constant.TRANSACTIONS);
-		   transactionScanner = new Scanner(transactionFile); 
+		  File transactFile = new File(transactionFile);
+		   transactionScanner = new Scanner(transactFile); 
 
 		    while(transactionScanner.hasNextLine()) {
 				Transaction transaction = new  Transaction();
-		    	transactionScanner.useDelimiter("\\s{2,}");
-		    	transaction.setCustomerName(transactionScanner.next());
-		    	String items = transactionScanner.next();
-				  populateItems(transaction, items);
+		    	transaction.setCustomerName(transactionScanner.nextLine());
+	    		ArrayList <Item> itemList = new ArrayList<Item>();
+		    	while(transactionScanner.hasNextLine()) {
+			    	String checkNextLine = transactionScanner.nextLine();
+		    	if(!((checkNextLine.contains(Constant.CASH)) || (checkNextLine.contains(Constant.CREDIT))))
+		    	{		    	
+		    		populateItems( transaction,  checkNextLine, itemList);
+		    		}
+		    	else {
+		    		String payment = checkNextLine;
+					populatePayment(transaction, payment);
+					break;
 
-		    	String payment = transactionScanner.next();
-				populatePayment(transaction, payment);
+		    	}
+		    	}
+		    	transaction.setItem(itemList);
+
+		    	
 			
 		    	transactionList.add(transaction);
-		    //System.out.println(transaction.customerName+ " -" + item.UPC+ " -"+ payment);
 	   } 
 	}
 	  catch(Exception e){
@@ -70,9 +95,8 @@ public class TransactionReader {
 		}
 	}
 
-	private static void populateItems(Transaction transaction, String items) {
+	private static void populateItems(Transaction transaction, String items, ArrayList<Item> itemList) {
 		Scanner itemScanner = new Scanner(items); 
-		ArrayList <Item> itemList = new ArrayList<Item>();
 		  try{
 			  while(itemScanner.hasNext())
 			{				
