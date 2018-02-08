@@ -23,12 +23,12 @@ public class ProductReader {
 
             @SuppressWarnings("resource")
             Scanner productScanner = new Scanner(prodFile);
-            productScanner.useDelimiter("\\s{2,}");
+            productScanner.useDelimiter("\\s{2,}\\s*");
             while(productScanner.hasNextLine()) {
                 Product product = new  Product();
                 product.setUPC(productScanner.next());
                 product.setProductDescription(productScanner.next());
-                product.setPrice(Double.parseDouble(productScanner.next()));
+                product.setPrice(Double.parseDouble(productScanner.nextLine()));
                 productMap.put(product.getUpc(), product);
             }
         }

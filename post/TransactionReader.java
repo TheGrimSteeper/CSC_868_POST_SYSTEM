@@ -105,6 +105,7 @@ public class TransactionReader {
         }
     }
 
+    // For Testing
     public static void main(String[] args) {
         ArrayList<Customer> customers = TransactionReader.parseTransactions(Constant.TRANSACTIONS);
     }
