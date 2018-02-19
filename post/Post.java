@@ -6,14 +6,14 @@ import java.util.ArrayDeque;
  * @author  Ian Dennis
  */
 
-public class PostSystem {
+public class Post {
 
     private ProductCatalog productsInStock;
     private ArrayDeque<Transaction> leftoverTransactions;
     private Transaction currentTransaction;
     private String storeName;
 
-    public PostSystem(ProductCatalog products, String storeName) {
+    public Post(ProductCatalog products, String storeName) {
 
         this.productsInStock = products;
         this.leftoverTransactions = new ArrayDeque<>();

@@ -8,8 +8,7 @@ public class CreditPayment extends Payment {
 
     private String cardNumber;
 
-    public CreditPayment(String paymentMode, String cardNumber) {
-        super(paymentMode);
+    public CreditPayment(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 

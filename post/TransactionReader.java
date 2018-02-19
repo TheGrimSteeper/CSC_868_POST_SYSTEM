@@ -71,13 +71,18 @@ public class TransactionReader {
             {
                 Payment pay = null;
                 String paymentMode = paymentScanner.next();
-                if((Constant.CASH).equalsIgnoreCase(paymentMode) || (Constant.CHECK).equalsIgnoreCase(paymentMode)){
+                if((Constant.CASH).equalsIgnoreCase(paymentMode)) {
                     String cashTendered = paymentScanner.next();
-                    pay = new CashPayment(Constant.CASH, Double.parseDouble(cashTendered.substring(1)));
+                    pay = new CashPayment(Double.parseDouble(cashTendered.substring(1)));
                 }
                 else if((Constant.CREDIT).equalsIgnoreCase(paymentMode)) {
-                    pay = new CreditPayment(Constant.CREDIT, paymentScanner.next());
+                    pay = new CreditPayment(paymentScanner.next());
                 }
+                else if((Constant.CHECK).equalsIgnoreCase(paymentMode)) {
+                    String cashTendered = paymentScanner.next();
+                    pay = new CheckPayment(Double.parseDouble(cashTendered.substring(1)));
+                }
+
 
                 newCustomer.setPayType(pay);
             }

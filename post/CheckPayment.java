@@ -4,11 +4,11 @@ package post;
  * @author  Ian Dennis
  */
 
-public class CashPayment extends Payment {
+public class CheckPayment extends Payment {
 
     private double amountToPay;
 
-    public CashPayment(double amountToPay) {
+    public CheckPayment(double amountToPay) {
         this.amountToPay = amountToPay;
     }
 
@@ -26,6 +26,6 @@ public class CashPayment extends Payment {
     }
 
     public String toString() {
-        return String.format("CASH %6.2f",amountToPay);
+        return String.format("CHECK %6.2f",amountToPay);
     }
 }

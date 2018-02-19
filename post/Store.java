@@ -1,7 +1,6 @@
 package post;
 
 import java.util.ArrayList;
-import parameter_files.Constant;
 
 /**
  * @author  Ian Dennis
@@ -10,7 +9,7 @@ import parameter_files.Constant;
 public class Store {
 
     private TransactionLog salesLog;
-    private PostSystem register;
+    private Post register;
     private ArrayList<Customer> customers;
     private String storeName;
 
@@ -19,7 +18,7 @@ public class Store {
         this.storeName = storeName;
     }
 
-    public void openStore(String transactionTxt, TransactionLog salesLog, PostSystem register) {
+    public void openStore(String transactionTxt, TransactionLog salesLog, Post register) {
 
         System.out.format("%s is now open for business. Welcome!\n\n\n", storeName);
 

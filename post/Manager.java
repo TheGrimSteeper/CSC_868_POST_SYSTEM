@@ -9,7 +9,7 @@ import parameter_files.Constant;
 public class Manager {
 
     private Store store;
-    private PostSystem register;
+    private Post register;
     private ProductCatalog storeProducts;
     private TransactionLog salesLog;
     private String storeName;
@@ -27,7 +27,7 @@ public class Manager {
 
         //open store, setup post, put together product catalog
         storeProducts.buildCatalog(productFile);
-        register = new PostSystem(storeProducts, storeName);
+        register = new Post(storeProducts, storeName);
         store.openStore(transactionFile, salesLog, register);
     }
 
