@@ -12,6 +12,5 @@ public class Constant {
 	public  static final String CASH = "CASH";
 	public  static final String CREDIT = "CREDIT";
 	public  static final String CHECK = "CHECK";
-    public  static final double TAXRATE = 0.095;
 
 }

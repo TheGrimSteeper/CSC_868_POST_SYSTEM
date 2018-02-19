@@ -50,7 +50,7 @@ public class Transaction {
 
     private void calculateTotal(SalesLineItem lineItem) {
         double subtotal = lineItem.getSubtotal();
-        total += subtotal + (subtotal * Constant.TAXRATE);
+        total += subtotal;
     }
 
     public void addLineItem(SalesLineItem newItem) {
