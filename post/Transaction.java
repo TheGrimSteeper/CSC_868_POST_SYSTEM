@@ -2,7 +2,6 @@ package post;
 
 import java.util.ArrayList;
 import java.util.Date;
-import parameter_files.Constant;
 
 /**
  * @author  Ian Dennis
@@ -16,6 +15,8 @@ public class Transaction {
     private Payment payType;
     private String customerName;
     private Date transactionTime;
+    private int transactionId;
+    private static int transactionCounter = 0;
 
     public Transaction() {
 
@@ -24,6 +25,7 @@ public class Transaction {
         transactionTime = new Date();
         itemsPurchased = new ArrayList<>();
         payType = null;
+        transactionId = ++transactionCounter;
     }
 
     public String getCustomerName() {
@@ -38,15 +40,15 @@ public class Transaction {
         return payType;
     }
 
-    public void setPayType(Payment payType) {
-        this.payType = payType;
-    }
+    public void setPayType(Payment payType) { this.payType = payType; }
 
     public Double getTotal() { return total; }
 
     public void setChangeDue(Double change) { this.changeDue = change; }
 
     public double getChangeDue() { return changeDue; }
+
+    public int getTransactionId() { return this.transactionId; }
 
     private void calculateTotal(SalesLineItem lineItem) {
         double subtotal = lineItem.getSubtotal();
