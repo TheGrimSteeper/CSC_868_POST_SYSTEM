@@ -1,7 +1,7 @@
 package post;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author  Ian Dennis
@@ -14,7 +14,7 @@ public class Transaction {
     private double changeDue;
     private Payment payType;
     private String customerName;
-    private Date transactionTime;
+    private LocalDateTime transactionTime;
     private int transactionId;
     private int lineItemCount;
     private static int transactionCounter = 0;
@@ -24,7 +24,7 @@ public class Transaction {
         total = 0.0;
         changeDue = 0.0;
         lineItemCount = 1;
-        transactionTime = new Date();
+        transactionTime = LocalDateTime.now();
         itemsPurchased = new ArrayList<>();
         payType = null;
         transactionId = ++transactionCounter;
@@ -52,7 +52,7 @@ public class Transaction {
 
     public int getTransactionId() { return this.transactionId; }
 
-    public Date getTransactionTime() { return this.transactionTime; }
+    public LocalDateTime getTransactionTime() { return this.transactionTime; }
 
     public int getLineItemCount() { return this.lineItemCount; }
 

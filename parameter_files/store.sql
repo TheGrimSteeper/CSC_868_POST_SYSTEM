@@ -26,9 +26,6 @@ CREATE TABLE transactions (
   PRIMARY KEY (transaction_id)
 );
 
-INSERT INTO transactions VALUES 
-('Jim',5,'bill','2008-11-11',4.5);
-
 CREATE TABLE transaction_lines (
   upc VARCHAR(6) NOT NULL,
   transaction_id INT NOT NULL,
@@ -39,6 +36,3 @@ CREATE TABLE transaction_lines (
   FOREIGN KEY (transaction_id) REFERENCES transactions (transaction_id),
   FOREIGN KEY (upc) REFERENCES product_catalog (upc)
 );
-
-INSERT INTO transaction_lines VALUES 
-('0001',5,'5_1',6, 20.0);
