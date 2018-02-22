@@ -138,7 +138,6 @@ public class TransactionLog {
                 postConnTransactionLines.setRequestMethod("POST");
                 postConnTransactionLines.setRequestProperty("Content-Type", "application/xml");
                 String newTransactionLinesString = makeSalesLineItemXMLString(transaction, lineItem);
-                System.out.println(newTransactionLinesString);
 
                 OutputStream postOutputStream = postConnTransactionLines.getOutputStream();
                 postOutputStream.write(newTransactionLinesString.getBytes());

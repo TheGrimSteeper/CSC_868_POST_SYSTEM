@@ -32,7 +32,7 @@ public class Manager {
         try {
         	//TODO-- Comment or remove storeProducts.buildCatalog(productFile);
             storeProducts.buildCatalogfromDB();
-            storeProducts.buildCatalog(productFile);
+            //storeProducts.buildCatalog(productFile);
 
         } catch (SAXException | ParserConfigurationException e) {
             System.out.println("Could not fetch the product catalog to initialize the POST!");
