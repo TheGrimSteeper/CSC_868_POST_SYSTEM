@@ -8,36 +8,35 @@ import java.util.ArrayList;
 
 public class Store {
 
-    private TransactionLog salesLog;
-    private Post register;
+    static  TransactionLog salesLog = new TransactionLog();
+    static  Post register = new Post();
     private ArrayList<Customer> customers;
+    private Customer customer = new Customer(null);
     private String storeName;
+    static POSTController postController = new POSTController();
 
     public Store(String storeName) {
-        this.register = null;
         this.storeName = storeName;
     }
 
-    public void openStore(String transactionTxt, TransactionLog salesLog, Post register) {
+    public void openStore(TransactionLog saleLog, Post post) {
 
         System.out.format("%s is now open for business. Welcome!\n\n\n", storeName);
-
-        this.salesLog = salesLog;
-        this.register = register;
+        salesLog = saleLog;
+        register = post;
         this.customers = new ArrayList<>();
-
-        customers = TransactionReader.parseTransactions(transactionTxt);
-
-        for (Customer customer : customers) {
-            register.startTransaction();
-
-            for (Item item : customer.getShoppingCart()) {
-                register.addItem(item);
-            }
-
-            register.endTransaction(customer);
-            register.sendTransactionToDB(salesLog);
-        }
+        postController.populateViews(null, 0);   
+    }
+    
+ public void updateTransaction(Customer customer) {
+	 
+	 register.startTransaction();
+ 	for (Item item : customer.getShoppingCart()){
+         register.addItem(item);
+   
+		register.endTransaction(customer);
+     register.sendTransactionToDB(salesLog);
+         }
 
     }
 

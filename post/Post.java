@@ -9,10 +9,10 @@ import java.util.ArrayDeque;
 public class Post {
 
     private ProductCatalog productsInStock;
-    private ArrayDeque<Transaction> leftoverTransactions;
-    private Transaction currentTransaction;
+    private ArrayDeque<Transaction> leftoverTransactions = new ArrayDeque<Transaction>();
+    private Transaction currentTransaction = new Transaction();
     private String storeName;
-    
+
     public Post() {
     	
     }
@@ -22,7 +22,6 @@ public class Post {
         this.productsInStock = products;
         this.leftoverTransactions = new ArrayDeque<>();
         this.storeName = storeName;
-
     }
 
     public void setProductCatalog(ProductCatalog updatedCatalog) { this.productsInStock = updatedCatalog; }
@@ -35,7 +34,7 @@ public class Post {
         currentTransaction.setCustomerName(newCustomer.getName());
     }
 
-    public void endTransaction(Customer newCustomer) {
+    public void endTransaction( Customer newCustomer) {
         getCustomerIdentity(newCustomer);
 
         if (verifyPayment(newCustomer)) {

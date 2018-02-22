@@ -24,16 +24,15 @@ public class ProductCatalog {
 
     public void buildCatalog(String filename) {
         productList = ProductReader.parseProducts(filename);
-        post.setProductCatalog(this);
-        postModel.getItemsForUPCMenu(productList);
+        //post.setProductCatalog(this);
+        //postModel.getItemsForUPCMenu(productList);
     }
-    
     
 
     public void buildCatalogfromDB() throws SAXException, ParserConfigurationException {
         productList = ProductReader.parseDBProducts();
-        //TODO-- uncomment the below line
-        //post.setProductCatalog(this);
+        post.setProductCatalog(this);
+        postModel.getItemsForUPCMenu(productList);
     }
 
     public Product lookupProduct(String UPC){

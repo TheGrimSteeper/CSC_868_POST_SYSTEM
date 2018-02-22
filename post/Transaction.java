@@ -18,7 +18,6 @@ public class Transaction {
     private int transactionId;
     private int lineItemCount;
     private static int transactionCounter = 0;
-    POSTController postController = new POSTController();
 
     public Transaction() {
 
@@ -73,9 +72,9 @@ public class Transaction {
 
     public void printTransaction() {
     	//TODO -- unsure of calling of the panel
-    	postController.populateViews(null, 0);
+    	//postController.populateViews(null, 0);
 
-        System.out.format("%-20s  %s\n", customerName, transactionTime.toString());
+       /* System.out.format("%-20s  %s\n", customerName, transactionTime.toString());
         System.out.println();
         for (SalesLineItem lineItem : itemsPurchased)
             System.out.println(lineItem.toString());
@@ -83,7 +82,11 @@ public class Transaction {
         System.out.println("------");
         System.out.format("Total $%6.2f\n", total);
         System.out.println("Amount Tendered: " + payType.toString());
-        System.out.format("Amount Returned:      %6.2f\n", changeDue);
+        System.out.format("Amount Returned:      %6.2f\n", changeDue);*/
     }
+
+	public void setTotal(double total) {
+		this.total = total;
+	}
 
 }

@@ -15,6 +15,8 @@ public class POSTController implements POSTDelegate {
     POSTModel model = new POSTModel();
     POSTDataSource dataSource = model;
     POSTJFrame post = new POSTJFrame();
+    static Store store = new Store(null);
+	static Transaction transaction = new Transaction();
 	static Customer customer = new Customer(null);
 	static ArrayList<Item> shoppingCart = new ArrayList<Item>();
     double total;
@@ -38,13 +40,23 @@ public class POSTController implements POSTDelegate {
         System.out.printf("Payment Type: %s Amount: %.2f\n",paymentType, amount);
         if(amount > total) {
         JOptionPane.showConfirmDialog(null, "Transaction Complete. Print receipt?");
+        transaction.setCustomerName(name);
+        CashPayment pay = new CashPayment(amount);
+        transaction.setPayType(pay);
+        Double change = amount - total;
+        transaction.setChangeDue(change);
         customer.setName(name);
         customer.setShoppingCart(shoppingCart);
-        new Post().endTransaction(customer);
+        customer.setPayType(pay);
+        store.updateTransaction(customer);
         }
         else {
         	JOptionPane.showMessageDialog(null, "Payment Failed. Please retry");
         }
+    }
+    
+    public Customer populateCustomerTransaction() {
+    	return customer;
     }
     
 
