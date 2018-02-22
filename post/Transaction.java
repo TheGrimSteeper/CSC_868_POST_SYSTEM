@@ -18,6 +18,7 @@ public class Transaction {
     private int transactionId;
     private int lineItemCount;
     private static int transactionCounter = 0;
+    POSTController postController = new POSTController();
 
     public Transaction() {
 
@@ -52,7 +53,7 @@ public class Transaction {
 
     public int getTransactionId() { return this.transactionId; }
 
-    public LocalDateTime getTransactionTime() { return this.transactionTime; }
+    public LocalDateTime  getTransactionTime() { return this.transactionTime; }
 
     public int getLineItemCount() { return this.lineItemCount; }
 
@@ -71,6 +72,8 @@ public class Transaction {
     }
 
     public void printTransaction() {
+    	//TODO -- unsure of calling of the panel
+    	postController.populateViews(null, 0);
 
         System.out.format("%-20s  %s\n", customerName, transactionTime.toString());
         System.out.println();
