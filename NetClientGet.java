@@ -72,77 +72,103 @@ public class NetClientGet {
             e.printStackTrace();
         }
     }
-    public static void main(String[] args) throws ParserConfigurationException, SAXException {
-        NetClientGet testClient = new NetClientGet();
-        testClient.getProductCatalog();
+
+    public void postTransaction() {
+        try {
 
             /*
                 POST
              */
-/*
-            URL urlLineItem = new URL("http://localhost:8080/StoreServer/webresources/com.personentity.transactionlines");
-            HttpURLConnection postConnLineItem = (HttpURLConnection) urlLineItem.openConnection();
-            postConnLineItem.setDoOutput(true);
-            postConnLineItem.setRequestMethod("POST");
-            postConnLineItem.setRequestProperty("Content-Type", "application/xml");
 
-            String newLineItemString =
-                           "<person> \n"
-                    + "           <gender>F</gender> \n"
-                    + "           <personId>50</personId> \n"
-                    + "     </person> ";
+            String output;
+            /*URL urlTransactions = new URL("http://localhost:8080/StoreServer1/webresources/com.storeserver1entity.transactions");
+            HttpURLConnection postConnTransactions = (HttpURLConnection) urlTransactions.openConnection();
+            postConnTransactions.setDoOutput(true);
+            postConnTransactions.setRequestMethod("POST");
+            postConnTransactions.setRequestProperty("Content-Type", "application/xml");
 
-            OutputStream postOutputStream = postConnLineItem.getOutputStream();
-            postOutputStream.write(newLineItemString.getBytes());
+            String newTransactionsString =
+                    "<transactions> \n"
+                            + "           <customerName>Billy</customerName> \n"
+                            + "           <givenDate>2008-11-12T00:00:00-08:00</givenDate> \n"
+                            + "           <paymentType>CREDIT</paymentType> \n"
+                            + "           <total>10.20</total> \n"
+                            + "           <transactionId>6</transactionId> \n"
+                            + "     </transactions> ";
+
+            OutputStream postOutputStream = postConnTransactions.getOutputStream();
+            postOutputStream.write(newTransactionsString.getBytes());
             postOutputStream.flush();
 
-            if (postConnLineItem.getResponseCode() >= 400) {
+            if (postConnTransactions.getResponseCode() >= 400) {
                 throw new RuntimeException("Failed : HTTP error code : "
-                        + postConnLineItem.getResponseCode());
+                        + postConnTransactions.getResponseCode());
             }
 
-            br = new BufferedReader(new InputStreamReader(
-                    (postConnLineItem.getInputStream())));
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                    (postConnTransactions.getInputStream())));
             System.out.println("Output from Server .... \n");
             while ((output = br.readLine()) != null) {
                 System.out.println(output);
             }
 
-            postConnLineItem.disconnect();
+            postConnTransactions.disconnect();*/
 
-            HttpURLConnection postConnPersonName = (HttpURLConnection) urlPersonName.openConnection();
-            postConnPersonName.setDoOutput(true);
-            postConnPersonName.setRequestMethod("POST");
-            postConnPersonName.setRequestProperty("Content-Type", "application/xml");
+            URL urlTransactionLines = new URL("http://localhost:8080/StoreServer1/webresources/com.storeserver1entity.transactionlines");
+            HttpURLConnection postConnTransactionLines = (HttpURLConnection) urlTransactionLines.openConnection();
+            postConnTransactionLines.setDoOutput(true);
+            postConnTransactionLines.setRequestMethod("POST");
+            postConnTransactionLines.setRequestProperty("Content-Type", "application/xml");
 
-            String newPersonNameString = 
-                            "<transactionLines>  \n"
-                    + "              <familyName>Sally</familyName>  \n"
-                    + "              <givenName>Smith</givenName>  \n"
-                    + "              <personId>  \n"
-                    + "                     <gender>F</gender>  \n"
-                    + "                     <personId>50</personId>  \n"
-                    + "              </personId>  \n"
-                    + "              <personNameId>50</personNameId>  \n"
-                    + "      </transactionLines>";
+            String newTransactionLinesString =
+                    "<transactionLines>  \n"
+                            + "              <quantity>10</quantity>  \n"
+                            + "              <subtotal>25.00</subtotal>  \n"
+                            + "              <transactionId>  \n"
+                            + "                     <customerName>Billy</customerName> \n"
+                            + "                     <givenDate>2008-11-12T00:00:00-08:00</givenDate> \n"
+                            + "                     <paymentType>CREDIT</paymentType> \n"
+                            + "                     <total>10.20</total> \n"
+                            + "                     <transactionId>6</transactionId> \n"
+                            + "              </transactionId>  \n"
+                            + "              <transactionLineId>6_2</transactionLineId>  \n"
+                            + "              <upc>  \n"
+                            + "                     <givenName>CARROTS</givenName>  \n"
+                            + "                     <price>1.48</price>  \n"
+                            + "                     <upc>0003</upc>  \n"
+                            + "              </upc>  \n"
+                            + "      </transactionLines>";
 
-            postOutputStream = postConnPersonName.getOutputStream();
-            postOutputStream.write(newPersonNameString.getBytes());
+            OutputStream postOutputStream = postConnTransactionLines.getOutputStream();
+            postOutputStream.write(newTransactionLinesString.getBytes());
             postOutputStream.flush();
 
-            if (postConnPersonName.getResponseCode() >= 400) {
+            if (postConnTransactionLines.getResponseCode() >= 400) {
                 throw new RuntimeException("Failed : HTTP error code : "
-                        + postConnPersonName.getResponseCode());
+                        + postConnTransactionLines.getResponseCode());
             }
             BufferedReader br1 = new BufferedReader(new InputStreamReader(
-                    (postConnPersonName.getInputStream())));
+                    (postConnTransactionLines.getInputStream())));
             System.out.println("Output from Server .... \n");
             while ((output = br1.readLine()) != null) {
                 System.out.println(output);
             }
 
-            postConnPersonName.disconnect();
-*/
+            postConnTransactionLines.disconnect();
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) throws ParserConfigurationException, SAXException {
+        NetClientGet testClient = new NetClientGet();
+        //testClient.getProductCatalog();
+        testClient.postTransaction();
+
+
     }
 
 }
