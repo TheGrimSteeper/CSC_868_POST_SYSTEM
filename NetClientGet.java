@@ -17,14 +17,13 @@ import org.xml.sax.SAXException;
 
 public class NetClientGet {
 
-    public static void main(String[] args) throws ParserConfigurationException, SAXException {
-
+    public void getProductCatalog() throws ParserConfigurationException, SAXException {
         try {
 
             /*
               GET
              */
-            URL urlProductCatalog = new URL("http://localhost:8080/StoreServer/webresources/com.storeentity.productcatalog");
+            URL urlProductCatalog = new URL("http://localhost:8080/StoreServer1/webresources/com.storeserver1entity.productcatalog");
             HttpURLConnection getConnProductCatalog = (HttpURLConnection) urlProductCatalog.openConnection();
             getConnProductCatalog.setRequestMethod("GET");
             getConnProductCatalog.setRequestProperty("Accept", "application/xml");
@@ -48,7 +47,7 @@ public class NetClientGet {
             /*
             Following are 2 alternatives for accessing values in XML tree nodes
             */
-            
+
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document doc = builder.parse(new ByteArrayInputStream(msg.getBytes()));
             NodeList productCatalogNodes = doc.getElementsByTagName("productCatalog");
@@ -67,10 +66,20 @@ public class NetClientGet {
 
             System.out.println("--------------------------\n\n");
 
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void main(String[] args) throws ParserConfigurationException, SAXException {
+        NetClientGet testClient = new NetClientGet();
+        testClient.getProductCatalog();
+
             /*
                 POST
              */
-
+/*
             URL urlLineItem = new URL("http://localhost:8080/StoreServer/webresources/com.personentity.transactionlines");
             HttpURLConnection postConnLineItem = (HttpURLConnection) urlLineItem.openConnection();
             postConnLineItem.setDoOutput(true);
@@ -133,13 +142,7 @@ public class NetClientGet {
             }
 
             postConnPersonName.disconnect();
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+*/
     }
 
 }
