@@ -9,9 +9,11 @@ import java.util.ArrayList;
 public class Customer {
 
     private String name;
-    private Payment payType;
+
+	private Payment payType;
     private ArrayList<Item> shoppingCart;
 
+    
     public Customer(String name) {
         this.name = name;
         this.shoppingCart = new ArrayList<>();
@@ -45,5 +47,13 @@ public class Customer {
         shoppingCart.add(newItem);
         return true;
     }
+    
+    public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setShoppingCart(ArrayList<Item> shoppingCart) {
+		this.shoppingCart = shoppingCart;
+	}
 
 }

@@ -12,6 +12,10 @@ public class Post {
     private ArrayDeque<Transaction> leftoverTransactions;
     private Transaction currentTransaction;
     private String storeName;
+    
+    public Post() {
+    	
+    }
 
     public Post(ProductCatalog products, String storeName) {
 

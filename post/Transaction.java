@@ -2,6 +2,7 @@ package post;
 
 import java.util.ArrayList;
 import java.util.Date;
+import parameter_files.Constant;
 
 /**
  * @author  Ian Dennis
@@ -18,6 +19,7 @@ public class Transaction {
     private int transactionId;
     private int lineItemCount;
     private static int transactionCounter = 0;
+    POSTController postController = new POSTController();
 
     public Transaction() {
 
@@ -71,6 +73,8 @@ public class Transaction {
     }
 
     public void printTransaction() {
+    	//TODO -- unsure of calling of the panel
+    	postController.populateViews(null, 0);
 
         System.out.format("%-20s  %s\n", customerName, transactionTime.toString());
         System.out.println();

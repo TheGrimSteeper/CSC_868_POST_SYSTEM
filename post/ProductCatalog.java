@@ -14,17 +14,26 @@ import javax.xml.parsers.ParserConfigurationException;
 public class ProductCatalog {
 
     private HashMap<String, Product> productList;
+    static POSTJFrame post = new POSTJFrame();
+    static POSTModel postModel = new POSTModel();
 
     public ProductCatalog(){
         this.productList = new HashMap<String, Product>();
+
     }
 
     public void buildCatalog(String filename) {
         productList = ProductReader.parseProducts(filename);
+        post.setProductCatalog(this);
+        postModel.getItemsForUPCMenu(productList);
     }
+    
+    
 
     public void buildCatalogfromDB() throws SAXException, ParserConfigurationException {
         productList = ProductReader.parseDBProducts();
+        //TODO-- uncomment the below line
+        //post.setProductCatalog(this);
     }
 
     public Product lookupProduct(String UPC){
@@ -35,6 +44,7 @@ public class ProductCatalog {
 
         return value;
     }
+    
 
     public void addItem(String UPC, Product product){
 
@@ -54,11 +64,11 @@ public class ProductCatalog {
 	 */
 
 	 // For Testing
-	 public static void main(String[] args) {
+	 /*public static void main(String[] args) {
 	     ProductCatalog items = new ProductCatalog();
 	     items.buildCatalog(Constant.PRODUCTS);
 
-	     Product tempProduct = items.lookupProduct("0004");
-	     tempProduct = items.lookupProduct("1010");
-     }
+	     //Product tempProduct = items.lookupProduct("0004");
+	     //tempProduct = items.lookupProduct("1010");
+     }*/
 }
