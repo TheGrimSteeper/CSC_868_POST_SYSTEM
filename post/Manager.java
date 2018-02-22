@@ -1,6 +1,9 @@
 package post;
 
+import org.xml.sax.SAXException;
 import parameter_files.Constant;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * @author  Ian Dennis
@@ -26,7 +29,13 @@ public class Manager {
         storeProducts = new ProductCatalog();
 
         //open store, setup post, put together product catalog
-        storeProducts.buildCatalog(productFile);
+        try {
+            storeProducts.buildCatalogfromDB();
+        } catch (SAXException | ParserConfigurationException e) {
+            System.out.println("Could not fetch the product catalog to initialize the POST!");
+            System.exit(1);
+        }
+
         register = new Post(storeProducts, storeName);
         store.openStore(transactionFile, salesLog, register);
     }
@@ -43,6 +52,6 @@ public class Manager {
         Manager owner = new Manager(Constant.STORENAME);
         owner.setupStore(Constant.PRODUCTS, Constant.TRANSACTIONS);
         owner.closeStore();
-        System.out.println("\n\nThank you for using POST 1.");
+        System.out.println("\n\nThank you for using POST 2.");
     }
 }

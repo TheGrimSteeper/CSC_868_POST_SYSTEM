@@ -1,7 +1,11 @@
 package post;
 
 import java.util.*;
+
+import org.xml.sax.SAXException;
 import parameter_files.Constant;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * @author  Alex Bautista
@@ -17,6 +21,10 @@ public class ProductCatalog {
 
     public void buildCatalog(String filename) {
         productList = ProductReader.parseProducts(filename);
+    }
+
+    public void buildCatalogfromDB() throws SAXException, ParserConfigurationException {
+        productList = ProductReader.parseDBProducts();
     }
 
     public Product lookupProduct(String UPC){
