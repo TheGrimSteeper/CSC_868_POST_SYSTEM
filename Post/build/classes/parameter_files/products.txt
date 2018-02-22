@@ -1,0 +1,10 @@
+0001     AVOCADOS                 0001.25
+0002     APPLES, RED DELICIOUS    0001.00
+0003     CARROTS                  0001.48
+0004     BANANAS                  0001.38
+0005     MILK, 2%                 0002.21
+0006     SALAD MIX                0001.78
+0007     ALUMINUM FOIL            0008.10
+0008     BROCCOLI                 0001.62
+0009     TOMATOES                 0002.49
+0010     ROTISSERIE CHICKEN       0011.39
