@@ -1,5 +1,12 @@
 package post;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import parameter_files.Constant;
@@ -36,35 +43,99 @@ public class TransactionLog {
         customerLog.put(customerName, customerTransaction);
     }
 
-/*
-    public static void generateTransactionLog(ArrayList<Transaction> transactionList, HashMap<String, Product> productMap){
+    public void pushLogsToDB(Transaction transaction) {
+        pushTransactiontoDB(transaction);
+        pushSalesLineItemstoDB(transaction);
+    }
 
-        for(Transaction transaction: transactionList){
-            System.out.println("-------------" +Constant.STORENAME+ "Transaction Log-------------");
-            System.out.println();
-            System.out.println("Identifying information: " + transaction.customerName);
+    private String makeTransactionXMLString(Transaction transaction) {
 
-            transaction.item = Item.poulateItemDetails(transaction.item, productMap);
+        String paymentType = " ";
+        Payment payment = transaction.getPayType();
 
-            for(Item item : transaction.item){
-                if(item.getQuantity() > 1){
-                    System.out.println("Item:          " + item.getQuantity());//Columns 10? (10 spaces)
-                }
-                System.out.println("Item:" + item.getUPC());//columns 1-4
+        if (payment instanceof CashPayment)
+            paymentType = "CASH";
+        else if (payment instanceof CheckPayment)
+            paymentType = "CHECK";
+        else if (payment instanceof CreditPayment)
+            paymentType = "CREDIT";
+
+        return "<transactions> \n"
+                        + "           <customerName>" + transaction.getCustomerName() + "</customerName> \n"
+                        + "           <givenDate>" + transaction.getTransactionTime() + "</givenDate> \n"
+                        + "           <paymentType>" + paymentType + "</paymentType> \n"
+                        + "           <total>" + transaction.getTotal() + "</total> \n"
+                        + "           <transactionId>" + transaction.getTransactionId() + "</transactionId> \n"
+                        + "     </transactions> ";
+
+    }
+
+    private String makeSalesLineItemXMLString(Transaction transaction, SalesLineItem lineItem) {
+
+        return "<transactionLines>  \n"
+                + "              <quantity>" + lineItem.getQuantity() + "</quantity>  \n"
+                + "              <subtotal>" + lineItem.getSubtotal() + "</subtotal>  \n"
+                +                       makeTransactionXMLString(transaction)
+                + "              <transactionLineId>" + lineItem.getLineItemId() + "</transactionLineId>  \n"
+                + "              <upc>  \n"
+                + "                     <givenName>" + lineItem.getLineItem().getProductDescription() + "</givenName>  \n"
+                + "                     <price>" + lineItem.getLineItem().getPrice() + "</price>  \n"
+                + "                     <upc>" + lineItem.getLineItem().getUpc() + "</upc>  \n"
+                + "              </upc>  \n"
+                + "      </transactionLines>";
+    }
+
+    private void pushTransactiontoDB(Transaction transaction) {
+
+        try {
+            URL urlTransactions = new URL("http://localhost:8080/StoreServer1/webresources/com.storeserver1entity.transactions");
+            HttpURLConnection postConnTransactions = (HttpURLConnection) urlTransactions.openConnection();
+            postConnTransactions.setDoOutput(true);
+            postConnTransactions.setRequestMethod("POST");
+            postConnTransactions.setRequestProperty("Content-Type", "application/xml");
+
+            String newTransactionsString = this.makeTransactionXMLString(transaction);
+
+            OutputStream postOutputStream = postConnTransactions.getOutputStream();
+            postOutputStream.write(newTransactionsString.getBytes());
+            postOutputStream.flush();
+
+            if (postConnTransactions.getResponseCode() >= 400) {
+                throw new RuntimeException("Failed : HTTP error code : "
+                        + postConnTransactions.getResponseCode());
             }
 
-            String paymentMode = transaction.getPayment().paymentMode;
-
-            if((Constant.CASH).equalsIgnoreCase(paymentMode)){
-                System.out.println("Payment: Cash/Check $" + transaction.getPayment().amount);
-            }
-            else if((Constant.CREDIT).equalsIgnoreCase(paymentMode)){
-                System.out.println("Payment: Credit " + (int)transaction.getPayment().amount);
-            }
-            System.out.println();
-            System.out.println();
+            postConnTransactions.disconnect();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-*/
 
+    private void pushSalesLineItemstoDB(Transaction transaction) {
+
+        try {
+            URL urlTransactionLines = new URL("http://localhost:8080/StoreServer1/webresources/com.storeserver1entity.transactionlines");
+            HttpURLConnection postConnTransactionLines = (HttpURLConnection) urlTransactionLines.openConnection();
+            postConnTransactionLines.setDoOutput(true);
+            postConnTransactionLines.setRequestMethod("POST");
+            postConnTransactionLines.setRequestProperty("Content-Type", "application/xml");
+
+            for (SalesLineItem lineItem : transaction.getItemsPurchased()) {
+                String newTransactionLinesString = makeSalesLineItemXMLString(transaction, lineItem);
+
+                OutputStream postOutputStream = postConnTransactionLines.getOutputStream();
+                postOutputStream.write(newTransactionLinesString.getBytes());
+                postOutputStream.flush();
+
+                if (postConnTransactionLines.getResponseCode() >= 400) {
+                    throw new RuntimeException("Failed : HTTP error code : "
+                            + postConnTransactionLines.getResponseCode());
+                }
+            }
+
+            postConnTransactionLines.disconnect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

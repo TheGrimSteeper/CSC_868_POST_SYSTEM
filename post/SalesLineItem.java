@@ -9,12 +9,14 @@ public class SalesLineItem {
     private Product item;
     private int quantity;
     private double subtotal;
+    private String lineItemId;
 
-    SalesLineItem(Product itemToBuy, int numItem) {
+    SalesLineItem(Product itemToBuy, int numItem, String lineItemId) {
 
         this.item = itemToBuy;
         this.quantity = numItem;
         subtotal = 0.0;
+        this.lineItemId = lineItemId;
 
         calcSubtotal();
     }
@@ -24,6 +26,8 @@ public class SalesLineItem {
     public Product getLineItem() { return item; }
 
     public int getQuantity() { return quantity; }
+
+    public String getLineItemId() { return lineItemId; }
 
     private void calcSubtotal() { subtotal = item.getPrice() * quantity; }
 

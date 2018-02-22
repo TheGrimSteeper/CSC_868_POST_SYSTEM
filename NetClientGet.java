@@ -44,10 +44,6 @@ public class NetClientGet {
             }
             System.out.println("--------------------------\n\n");
 
-            /*
-            Following are 2 alternatives for accessing values in XML tree nodes
-            */
-
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document doc = builder.parse(new ByteArrayInputStream(msg.getBytes()));
             NodeList productCatalogNodes = doc.getElementsByTagName("productCatalog");
@@ -81,7 +77,7 @@ public class NetClientGet {
              */
 
             String output;
-            /*URL urlTransactions = new URL("http://localhost:8080/StoreServer1/webresources/com.storeserver1entity.transactions");
+            URL urlTransactions = new URL("http://localhost:8080/StoreServer1/webresources/com.storeserver1entity.transactions");
             HttpURLConnection postConnTransactions = (HttpURLConnection) urlTransactions.openConnection();
             postConnTransactions.setDoOutput(true);
             postConnTransactions.setRequestMethod("POST");
@@ -112,7 +108,7 @@ public class NetClientGet {
                 System.out.println(output);
             }
 
-            postConnTransactions.disconnect();*/
+            postConnTransactions.disconnect();
 
             URL urlTransactionLines = new URL("http://localhost:8080/StoreServer1/webresources/com.storeserver1entity.transactionlines");
             HttpURLConnection postConnTransactionLines = (HttpURLConnection) urlTransactionLines.openConnection();
@@ -139,7 +135,7 @@ public class NetClientGet {
                             + "              </upc>  \n"
                             + "      </transactionLines>";
 
-            OutputStream postOutputStream = postConnTransactionLines.getOutputStream();
+            postOutputStream = postConnTransactionLines.getOutputStream();
             postOutputStream.write(newTransactionLinesString.getBytes());
             postOutputStream.flush();
 
@@ -165,7 +161,7 @@ public class NetClientGet {
 
     public static void main(String[] args) throws ParserConfigurationException, SAXException {
         NetClientGet testClient = new NetClientGet();
-        //testClient.getProductCatalog();
+        testClient.getProductCatalog();
         testClient.postTransaction();
 
 

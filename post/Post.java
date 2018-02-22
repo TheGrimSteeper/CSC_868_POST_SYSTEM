@@ -52,7 +52,8 @@ public class Post {
         storeProduct = this.productsInStock.lookupProduct(customerItem.getUPC());
 
         if (storeProduct != null) {
-            currentTransaction.addLineItem(new SalesLineItem(storeProduct, customerItem.getQuantity()));
+            String lineItemId = currentTransaction.getTransactionId() + "_" + currentTransaction.getLineItemCount();
+            currentTransaction.addLineItem(new SalesLineItem(storeProduct, customerItem.getQuantity(), lineItemId));
             successfulAdd = true;
         }
 
@@ -82,7 +83,8 @@ public class Post {
     public void sendTransactionToDB(TransactionLog salesLog) {
 
         while (!leftoverTransactions.isEmpty()) {
-            salesLog.addTransaction(leftoverTransactions.pop());
+            //salesLog.addTransaction(leftoverTransactions.pop());
+            salesLog.pushLogsToDB(leftoverTransactions.pop());
         }
     }
 

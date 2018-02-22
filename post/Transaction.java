@@ -16,12 +16,14 @@ public class Transaction {
     private String customerName;
     private Date transactionTime;
     private int transactionId;
+    private int lineItemCount;
     private static int transactionCounter = 0;
 
     public Transaction() {
 
         total = 0.0;
         changeDue = 0.0;
+        lineItemCount = 1;
         transactionTime = new Date();
         itemsPurchased = new ArrayList<>();
         payType = null;
@@ -50,6 +52,12 @@ public class Transaction {
 
     public int getTransactionId() { return this.transactionId; }
 
+    public Date getTransactionTime() { return this.transactionTime; }
+
+    public int getLineItemCount() { return this.lineItemCount; }
+
+    public ArrayList<SalesLineItem> getItemsPurchased() { return itemsPurchased; }
+
     private void calculateTotal(SalesLineItem lineItem) {
         double subtotal = lineItem.getSubtotal();
         total += subtotal;
@@ -58,6 +66,7 @@ public class Transaction {
     public void addLineItem(SalesLineItem newItem) {
 
         itemsPurchased.add(newItem);
+        lineItemCount++;
         calculateTotal(newItem);
     }
 
