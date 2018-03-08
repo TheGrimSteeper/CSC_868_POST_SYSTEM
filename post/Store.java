@@ -42,10 +42,9 @@ public class Store {
 	 register.startTransaction();
  	for (Item item : customer.getShoppingCart()){
          register.addItem(item);
-   
-		register.endTransaction(customer);
-     register.sendTransactionToDB(salesLog);
          }
+     register.endTransaction(customer);
+     register.sendTransactionToDB(salesLog);
 
     }
 
