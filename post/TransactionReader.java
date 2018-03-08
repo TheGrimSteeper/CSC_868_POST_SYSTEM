@@ -23,43 +23,18 @@ public class TransactionReader {
      * @param transactionFile
      * @return
      */
-    public static ArrayList<Customer> parseTransactions(String transactionFile) {
-        Scanner transactionScanner = null;
+    public static ArrayList<Customer> parseTransactions(Customer newCustomer) {
         ArrayList <Customer> customerList = new ArrayList<Customer>();
 
         try {
-            File transactFile = new File(transactionFile);
-            transactionScanner = new Scanner(transactFile);
-
-            while(transactionScanner.hasNextLine()) {
-                Customer newCustomer = new Customer(transactionScanner.nextLine());
-                while(transactionScanner.hasNextLine()) {
-                    String checkNextLine = transactionScanner.nextLine();
-                    if(!((checkNextLine.contains(Constant.CASH)) || (checkNextLine.contains(Constant.CREDIT)) || (checkNextLine.contains(Constant.CHECK))))
-                    {
-                        populateItems(newCustomer, checkNextLine);
-                    }
-                    else {
-                        String payment = checkNextLine;
-                        populatePayment(newCustomer, payment);
-
-                        // Skip empty lines between transactions
-                        if (transactionScanner.hasNextLine())
-                            transactionScanner.nextLine();
-                        break;
-                    }
-                }
-
+            
                 customerList.add(newCustomer);
-            }
+            
         }
         catch(Exception e){
-            System.out.println("Error during parsing transactions: "+ e);
+            System.out.println("Error adding  customer: "+ e);
         }
-        finally {
-            if(transactionScanner != null) {
-                transactionScanner.close();}
-        }
+        
         return customerList;
     }
 
@@ -113,10 +88,6 @@ public class TransactionReader {
         }
     }
 
-    // For Testing
-    public static void main(String[] args) {
-        ArrayList<Customer> customers = TransactionReader.parseTransactions(Constant.TRANSACTIONS);
-    }
 }
 
 

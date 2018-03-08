@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 
 public class POSTModel implements POSTDataSource {
     enum PaymentType {
-        Cash, Credit, Debit
+        CashPayment, CreditPayment, CheckPayment
     }
    static ArrayList<String> UPCList = new ArrayList<String>();
 

@@ -16,7 +16,7 @@ public class POSTJFrame extends javax.swing.JFrame {
 
     public POSTJFrame() {
         initComponents();
-        displayForm();
+        //displayForm();
         setVisible(true);
     }
 
@@ -177,7 +177,7 @@ public class POSTJFrame extends javax.swing.JFrame {
                                                 .addGroup(invoicePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(topUnitLabel)
                                                         .addComponent(bottomUnitLabel))
-                                                .addGap(22, 22, 22)
+                                                .addGap(20, 20, 20)
                                                 .addGroup(invoicePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(topExtendedPriceLabel)
                                                         .addComponent(bottomExtendedPriceLabel))))
@@ -290,7 +290,7 @@ public class POSTJFrame extends javax.swing.JFrame {
         });
 
         paymentAmountLabel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        paymentAmountLabel.setText("Amount");
+        paymentAmountLabel.setText("Paid");
 
         paymentTypeLabel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         paymentTypeLabel.setText("Payment type");
@@ -312,7 +312,7 @@ public class POSTJFrame extends javax.swing.JFrame {
                                 .addGroup(paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(paymentLabel)
                                         .addGroup(paymentPanelLayout.createSequentialGroup()
-                                                .addGap(22, 22, 22)
+                                                .addGap(20, 20, 20)
                                                 .addGroup(paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                         .addComponent(payButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addGroup(paymentPanelLayout.createSequentialGroup()
@@ -506,14 +506,14 @@ public class POSTJFrame extends javax.swing.JFrame {
     public static void displayForm() {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-//                new POSTJFrame().setVisible(true);
+                //new POSTJFrame().setVisible(true);
             }
         });
     }
 
-    public static void main(String args[]) {
+   public static void main(String args[]) {
         setLookAndFeel();
-        displayForm();
+        //displayForm();
     }
 
     //<editor-fold defaultstate="collapsed" desc=" Private Variables Declaration ">

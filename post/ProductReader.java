@@ -52,7 +52,7 @@ public class ProductReader {
         HashMap<String, Product> productMap = new HashMap<String, Product>();
 
         try {
-            URL urlProductCatalog = new URL("http://localhost:8080/StoreServer1/webresources/com.storeserver1entity.productcatalog");
+            URL urlProductCatalog = new URL("http://localhost:8080/Post2/webresources/com.store2entity.productcatalog");
             HttpURLConnection getConnProductCatalog = (HttpURLConnection) urlProductCatalog.openConnection();
             getConnProductCatalog.setRequestMethod("GET");
             getConnProductCatalog.setRequestProperty("Accept", "application/xml");

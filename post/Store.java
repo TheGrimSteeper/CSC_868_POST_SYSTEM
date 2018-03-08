@@ -2,6 +2,10 @@ package post;
 
 import java.util.ArrayList;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 /**
  * @author  Ian Dennis
  */
@@ -9,11 +13,10 @@ import java.util.ArrayList;
 public class Store {
 
     static  TransactionLog salesLog = new TransactionLog();
-    static  Post register = new Post();
+    public Post register = new Post();
     private ArrayList<Customer> customers;
     private Customer customer = new Customer(null);
     private String storeName;
-    static POSTController postController = new POSTController();
 
     public Store(String storeName) {
         this.storeName = storeName;
@@ -25,11 +28,17 @@ public class Store {
         salesLog = saleLog;
         register = post;
         this.customers = new ArrayList<>();
-        postController.populateViews(null, 0);   
+        new POSTController().populateViews(null, 0);   
     }
     
  public void updateTransaction(Customer customer) {
-	 
+     ProductCatalog storeProducts = new ProductCatalog();
+     try {
+		storeProducts.buildCatalogfromDB();
+	} catch (SAXException | ParserConfigurationException e) {
+		e.printStackTrace();
+	}
+	register.setProductCatalog(storeProducts);
 	 register.startTransaction();
  	for (Item item : customer.getShoppingCart()){
          register.addItem(item);

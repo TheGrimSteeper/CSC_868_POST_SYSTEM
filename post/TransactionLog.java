@@ -103,7 +103,7 @@ public class TransactionLog {
     private void pushTransactiontoDB(Transaction transaction) {
 
         try {
-            URL urlTransactions = new URL("http://localhost:8080/StoreServer1/webresources/com.storeserver1entity.transactions");
+            URL urlTransactions = new URL("http://localhost:8080/Post2/webresources/com.store2entity.transactions");
             HttpURLConnection postConnTransactions = (HttpURLConnection) urlTransactions.openConnection();
             postConnTransactions.setDoOutput(true);
             postConnTransactions.setRequestMethod("POST");
@@ -130,7 +130,7 @@ public class TransactionLog {
     private void pushSalesLineItemstoDB(Transaction transaction) {
 
         try {
-            URL urlTransactionLines = new URL("http://localhost:8080/StoreServer1/webresources/com.storeserver1entity.transactionlines");
+            URL urlTransactionLines = new URL("http://localhost:8080/Post2/webresources/com.store2entity.transactionlines");
 
             for (SalesLineItem lineItem : transaction.getItemsPurchased()) {
                 HttpURLConnection postConnTransactionLines = (HttpURLConnection) urlTransactionLines.openConnection();

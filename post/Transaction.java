@@ -1,6 +1,7 @@
 package post;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.time.LocalDateTime;
 
 /**
@@ -27,7 +28,9 @@ public class Transaction {
         transactionTime = LocalDateTime.now();
         itemsPurchased = new ArrayList<>();
         payType = null;
-        transactionId = ++transactionCounter;
+        Random rand = new Random(); 
+        int value = rand.nextInt(100);
+        transactionId = value;
     }
 
     public String getCustomerName() {

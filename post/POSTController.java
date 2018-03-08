@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JOptionPane;
+import javax.swing.text.StyleConstants.ColorConstants;
+
+import parameter_files.Constant;
 
 interface POSTDataSource {
     ArrayList<String> getItemsForUPCMenu(HashMap<String, Product> productList);
@@ -19,7 +22,9 @@ public class POSTController implements POSTDelegate {
 	static Transaction transaction = new Transaction();
 	static Customer customer = new Customer(null);
 	static ArrayList<Item> shoppingCart = new ArrayList<Item>();
+	Payment pay;
     double total;
+    ProductCatalog pc = new ProductCatalog();
 
     POSTController() {
         post.setDelegate(this);
@@ -38,17 +43,26 @@ public class POSTController implements POSTDelegate {
     @Override
     public void userPressedPay(String name, POSTModel.PaymentType paymentType, double amount) {
         System.out.printf("Payment Type: %s Amount: %.2f\n",paymentType, amount);
-        if(amount > total) {
+        if(amount >= total) {
         JOptionPane.showConfirmDialog(null, "Transaction Complete. Print receipt?");
         transaction.setCustomerName(name);
-        CashPayment pay = new CashPayment(amount);
+         if(("CashPayment").equals(paymentType.toString())) {
+         pay = new CashPayment(amount);
+         }
+        else if(("CreditPayment").equals(paymentType.toString())) {
+            pay = new CreditPayment("4111 1111 1112 1234");
+            }
+        else if(("CheckPayment").equals(paymentType.toString())) {
+            pay = new CheckPayment(total);
+            }
+        
         transaction.setPayType(pay);
         Double change = amount - total;
         transaction.setChangeDue(change);
         customer.setName(name);
         customer.setShoppingCart(shoppingCart);
         customer.setPayType(pay);
-        store.updateTransaction(customer);
+       new Store(Constant.STORENAME).updateTransaction(customer);
         }
         else {
         	JOptionPane.showMessageDialog(null, "Payment Failed. Please retry");
