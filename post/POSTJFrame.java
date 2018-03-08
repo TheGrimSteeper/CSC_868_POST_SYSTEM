@@ -61,6 +61,12 @@ public class POSTJFrame extends javax.swing.JFrame {
         }
     }
 
+    public void resetView() {
+        nameTextField.setText(null);
+        totalValueLabel.setText(null);
+        paymentAmountTextField.setText(null);
+        invoiceTextArea.setText(null);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

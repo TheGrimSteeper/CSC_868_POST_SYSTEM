@@ -67,6 +67,7 @@ public class POSTController implements POSTDelegate {
         else {
         	JOptionPane.showMessageDialog(null, "Payment Failed. Please retry");
         }
+        post.resetView();
     }
     
     public Customer populateCustomerTransaction() {
