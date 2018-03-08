@@ -74,7 +74,9 @@ public class POSTController implements POSTDelegate {
     	return customer;
     }
     
-    public void initViews() {
+    public void initViews(ProductCatalog products) {
+        post.setProductCatalog(products);
+        model.getItemsForUPCMenu(products.getProductList());
         post.setQuantityMenuRange(1, 100);
         post.updateDateLabel();
         renderDataSourceToView();

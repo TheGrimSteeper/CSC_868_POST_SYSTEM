@@ -22,13 +22,13 @@ public class Store {
         this.storeName = storeName;
     }
 
-    public void openStore(TransactionLog saleLog, Post post) {
+    public void openStore(TransactionLog saleLog, Post post, ProductCatalog products) {
 
         System.out.format("%s is now open for business. Welcome!\n\n\n", storeName);
         salesLog = saleLog;
         register = post;
         this.customers = new ArrayList<>();
-        new POSTController().initViews();
+        new POSTController().initViews(products);
     }
     
  public void updateTransaction(Customer customer) {

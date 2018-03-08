@@ -40,7 +40,7 @@ public class Manager {
         }
 
         register = new Post(storeProducts, storeName);
-        store.openStore(salesLog, register);
+        store.openStore(salesLog, register, storeProducts);
     }
 
     public void closeStore() {
