@@ -73,16 +73,18 @@ public class POSTController implements POSTDelegate {
     	return customer;
     }
     
-
-    public void populateViews(Product product, int quantity) {
+    public void initViews() {
         post.setQuantityMenuRange(1, 100);
         post.updateDateLabel();
-        renderDataSourceToView(product);
-        if(quantity !=0)
-        renderTextArea(product, quantity);
+        renderDataSourceToView();
     }
 
-    public void renderDataSourceToView(Product product) {
+    public void populateViews(Product product, int quantity) {
+        if(quantity != 0)
+            renderTextArea(product, quantity);
+    }
+
+    public void renderDataSourceToView() {
         post.populatePaymentTypeMenu(dataSource.getPaymentTypes());
         post.populateUPCMenu(dataSource.getUPCList());
     }

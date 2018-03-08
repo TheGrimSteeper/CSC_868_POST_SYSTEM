@@ -28,7 +28,7 @@ public class Store {
         salesLog = saleLog;
         register = post;
         this.customers = new ArrayList<>();
-        new POSTController().populateViews(null, 0);   
+        new POSTController().initViews();
     }
     
  public void updateTransaction(Customer customer) {
@@ -39,10 +39,12 @@ public class Store {
 		e.printStackTrace();
 	}
 	register.setProductCatalog(storeProducts);
-	 register.startTransaction();
+    register.startTransaction();
+
  	for (Item item : customer.getShoppingCart()){
          register.addItem(item);
-         }
+ 	}
+
      register.endTransaction(customer);
      register.sendTransactionToDB(salesLog);
 
