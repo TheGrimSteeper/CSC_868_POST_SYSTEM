@@ -10,7 +10,7 @@ public class Post {
 
     private ProductCatalog productsInStock;
     private ArrayDeque<Transaction> leftoverTransactions = new ArrayDeque<Transaction>();
-    private Transaction currentTransaction = new Transaction();
+    private Transaction currentTransaction;
     private String storeName;
 
     public Post() {

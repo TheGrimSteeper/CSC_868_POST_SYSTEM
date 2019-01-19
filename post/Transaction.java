@@ -31,6 +31,7 @@ public class Transaction {
         Random rand = new Random(); 
         int value = rand.nextInt(100);
         transactionId = value;
+        transactionId = ++transactionCounter;
     }
 
     public String getCustomerName() {
